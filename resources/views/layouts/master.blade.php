@@ -95,6 +95,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <i class="fas fa-users nav-icon"></i>
                   <p>Utilisateurs</p>
                 </router-link>
+                <router-link to="/Division" class="nav-link">
+                  <i class="fas fa-layer-group" style='font-size:20px'></i>
+                  <p>Division</p>
+                </router-link>
               </li>
 
             </ul>
@@ -162,7 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2018 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2022-2023 <a href="https://paypal.me/AraissiWalid">PayPal me</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->

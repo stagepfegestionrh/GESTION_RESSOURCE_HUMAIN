@@ -78,6 +78,10 @@ let routes = [
         path: '*', 
         components: require('./components/Dashboard.vue') 
     },
+    { 
+        path: '/Division', 
+        components: require('./components/Divisions.vue') 
+    },
 ]
 
 const router = new VueRouter({
