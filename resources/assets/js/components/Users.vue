@@ -27,7 +27,7 @@
                   <tr v-for="user in users" :key="user.id">
 
                     <td>{{user.id}}</td>
-                    <td>{{user.name}}</td>
+                    <td>{{user.nom}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.type | upText}}</td>
                     <td>{{user.created_at | myDate}}</td>
@@ -65,10 +65,46 @@
                 <form @submit.prevent="editmode ? updateUser() : createUser()">
                 <div class="modal-body">
                      <div class="form-group">
-                        <input v-model="form.name" type="text" name="name"
-                            placeholder="Name"
-                            class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
-                        <has-error :form="form" field="name"></has-error>
+                        <input v-model="form.nom" type="text" name="nom"
+                            placeholder="nom"
+                            class="form-control" :class="{ 'is-invalid': form.errors.has('nom') }">
+                        <has-error :form="form" field="nom"></has-error>
+                    </div>
+                     <div class="form-group">
+                        <input v-model="form.prenom" name="prenom" id="prenom"
+                        placeholder="prénom"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('prenom') }">
+                        <has-error :form="form" field="prenom"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <input type="" v-model="form.CNE" name="CNE" id="CNE"
+                        placeholder="CNE"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('CNE') }">
+                        <has-error :form="form" field="CNE"></has-error>
+                    </div>
+                     <div class="form-group">
+                        <input v-model="form.Matricule" name="Matricule" id="Matricule"
+                        placeholder="Matricule"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('Matricule') }">
+                        <has-error :form="form" field="Matricule"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <input v-model="form.Telephone" name="Telephone" id="Telephone"
+                        placeholder="Telephone"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('Telephone') }">
+                        <has-error :form="form" field="Telephone"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <select name="Sex" v-model="form.Sex" id="Sex" class="form-control" :class="{ 'is-invalid': form.errors.has('Sex') }">
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                        <has-error :form="form" field="Sex"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <input type="Date" name="Date_naissance" v-model="form.Date_naissance" id="Date_naissance" class="form-control" :class="{ 'is-invalid': form.errors.has('Date_naissance') }">
+                        <has-error :form="form" field="Date_naissance"></has-error>
                     </div>
 
                      <div class="form-group">
@@ -88,7 +124,7 @@
 
                     <div class="form-group">
                         <select name="type" v-model="form.type" id="type" class="form-control" :class="{ 'is-invalid': form.errors.has('type') }">
-                            <option value="">Select User Role</option>
+                            
                             <option value="admin">Administrateur</option>
                             <option value="user">utilisateur standard</option>
                             <option value="author">Auteur</option>
@@ -113,16 +149,12 @@
 
                 </div>
             </div>
-            </div>
-            
+        </div>      
     </div>
-
-
 </template>
-
 <script>
 import swal from 'sweetalert2';
-
+import moment from 'moment';
     export default {
         data() {
             return {
@@ -130,7 +162,13 @@ import swal from 'sweetalert2';
                 users : {},
                 form: new Form({
                     id:'',
-                    name : '',
+                    nom : '',
+                    prenom : '',
+                    CNE : '',
+                    Matricule : '',
+                    Telephone : '',
+                    Sex : '',
+                    Date_naissance : moment,
                     email: '',
                     password: '',
                     type: '',

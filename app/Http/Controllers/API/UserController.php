@@ -42,13 +42,22 @@ class UserController extends Controller
     {
 
         $this->validate($request,[
-            'name' => 'required|string|max:191',
+            'nom' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
             'password' => 'required|string|min:6'
         ]);
 
         return User::create([
-            'name' => $request['name'],
+            'nom' => $request['nom'],
+            'prenom' => $request['prenom'],
+            'CNE' => $request['CNE'],
+            'Matricule' => $request['Matricule'],
+            'Sex' => $request['Sex'],
+            'Date_naissance' => $request['Date_naissance'],
+            'Adresse' => $request['Adresse'],
+            'Telephone' => $request['Telephone'],
+            'Date_recrutement' => $request['Date_recrutement'],
+            'Intitule' => $request['Intitule'],
             'email' => $request['email'],
             'type' => $request['type'],
             'bio' => $request['bio'],
@@ -67,7 +76,7 @@ class UserController extends Controller
 
 
         $this->validate($request,[
-            'name' => 'required|string|max:191',
+            'nom' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
             'password' => 'sometimes|required|min:6'
         ]);
@@ -77,10 +86,10 @@ class UserController extends Controller
 
 
         if($request->photo != $currentPhoto){
-            $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
+            $nom = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
 
-            \Image::make($request->photo)->save(public_path('img/profile/').$name);
-            $request->merge(['photo' => $name]);
+            \Image::make($request->photo)->save(public_path('img/profile/').$nom);
+            $request->merge(['photo' => $nom]);
 
             $userPhoto = public_path('img/profile/').$currentPhoto;
             if(file_exists($userPhoto)){
@@ -129,7 +138,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $this->validate($request,[
-            'name' => 'required|string|max:191',
+            'nom' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
             'password' => 'sometimes|min:6'
         ]);

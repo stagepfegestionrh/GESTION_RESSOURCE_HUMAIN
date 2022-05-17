@@ -60,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="info">
           <a href="#" class="d-block">
-              {{Auth::user()->name}}
+              {{Auth::user()->nom}}
           </a>
         </div>
       </div>

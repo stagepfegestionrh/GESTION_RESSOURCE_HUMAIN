@@ -26,7 +26,7 @@ Vue.component(AlertError.name, AlertError)
 Vue.component(AlertErrors.name, AlertErrors)
 Vue.component(AlertSuccess.name, AlertSuccess)
 
-
+Vue.use(require('vue-moment'));
 
 import swal from 'sweetalert2'
 window.swal = swal;
