@@ -16,7 +16,7 @@ class CreateDivisionTable extends Migration
         Schema::create('division', function (Blueprint $table) {
             $table->increments('id');
             $table->string('Division');
-            $table->unsignedBigInteger('Chef_division');
+            $table->unsignedInteger('Chef_division');
             $table->foreign('Chef_division')->references('id')->on('users');
             $table->timestamps();
         });

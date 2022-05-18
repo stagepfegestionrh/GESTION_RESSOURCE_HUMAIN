@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
@@ -47,24 +49,41 @@ class UserController extends Controller
             'password' => 'required|string|min:6'
         ]);
 
-        return User::create([
-            'nom' => $request['nom'],
-            'prenom' => $request['prenom'],
-            'CNE' => $request['CNE'],
-            'Matricule' => $request['Matricule'],
-            'Sex' => $request['Sex'],
-            'Date_naissance' => $request['Date_naissance'],
-            'Adresse' => $request['Adresse'],
-            'Telephone' => $request['Telephone'],
-            'Date_recrutement' => $request['Date_recrutement'],
-            'Intitule' => $request['Intitule'],
-            'email' => $request['email'],
-            'type' => $request['type'],
-            'bio' => $request['bio'],
-            'photo' => $request['photo'],
-            'password' => Hash::make($request['password']),
-        ]);
+        $newUser = new User();
+        $newUser->nom = $request['nom'];
+        $newUser->prenom = $request['prenom'];
+        $newUser->CNE = $request['CNE'];
+        $newUser->Matricule = $request['Matricule'];
+        $newUser->Sex = $request['Sex'];
+        $newUser->Date_naissance = $request['Date_naissance'];
+        $newUser->Adresse = $request['Adresse'];
+        $newUser->Telephone = $request['Telepone'];
+        $newUser->Date_recrutement = $request['Date_recrutement'];
+        $newUser->Intitule = $request['Intitule'];
+        $newUser->email = $request['email'];
+        $newUser->type = $request['type'];
+        $newUser->bio = $request['bio'];
+        $newUser->photo = $request['photo'];
+        $newUser->password = Hash::make($request['password']);
 
+        $newUser->save();
+        // return User::create([
+        //     'nom' => $request['nom'],
+        //     'prenom' => $request['prenom'],
+        //     'CNE' => $request['CNE'],
+        //     'Matricule' => $request['Matricule'],
+        //     'Sex' => $request['Sex'],
+        //     'Date_naissance' => Carbon::parse($request['Date_naissance'])->setTimezone('GMT')->toDateString(),
+        //     'Adresse' => $request['Adresse'],
+        //     'Telephone' => $request['Telephone'],
+        //     'Date_recrutement' => $request['Date_recrutement'],
+        //     'Intitule' => $request['Intitule'],
+        //     'email' => $request['email'],
+        //     'type' => $request['type'],
+        //     'bio' => $request['bio'],
+        //     'photo' => $request['photo'],
+        //     'password' => Hash::make($request['password']),
+        // ]);
         return ['message' => "created"];
 
     }
@@ -103,15 +122,33 @@ class UserController extends Controller
             $request->merge(['password' => Hash::make($request['password'])]);
         }
 
+        $user->nom = $request['nom'];
+        $user->prenom = $request['prenom'];
+        $user->CNE = $request['CNE'];
+        $user->Matricule = $request['Matricule'];
+        $user->Sex = $request['Sex'];
+        $user->Date_naissance = $request['Date_naissance'];
+        $user->Adresse = $request['Adresse'];
+        $user->Telephone = $request['Telepone'];
+        $user->Date_recrutement = $request['Date_recrutement'];
+        $user->Intitule = $request['Intitule'];
+        $user->email = $request['email'];
+        $user->type = $request['type'];
+        $user->bio = $request['bio'];
+        $user->photo = $request['photo'];
+        $user->password = Hash::make($request['password']);
 
-        $user->update($request->all());
+        $user->save();
+
+       // $user->update($request->all());
         return ['message' => "Success"];
     }
 
 
     public function profile()
     {
-        return auth('api')->user();
+        $user = User::findOrFail(Auth::id());
+        return $user;
     }
 
     /**

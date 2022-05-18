@@ -62,8 +62,8 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                        <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Activity</a></li>
-                        <li class="nav-item"><a class="nav-link active show" href="#settings" data-toggle="tab">Settings</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Activité</a></li>
+                        <li class="nav-item"><a class="nav-link active show" href="#settings" data-toggle="tab">Parametre</a></li>
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
@@ -119,7 +119,7 @@
                                     <label for="inputEmail" class="col-sm-2 control-label">Date_naissance</label>
 
                                     <div class="col-sm-12">
-                                    <input type="" v-model="form.Date_naissance" class="form-control" id="inputDate_naissance" placeholder="Date_naissance"  :class="{ 'is-invalid': form.errors.has('Date_naissance') }">
+                                    <input type="Date" v-model="form.Date_naissance" class="form-control" id="inputDate_naissance" placeholder="Date_naissance"  :class="{ 'is-invalid': form.errors.has('Date_naissance') }">
                                      <has-error :form="form" field="Date_naissance"></has-error>
                                     </div>
                                 </div>

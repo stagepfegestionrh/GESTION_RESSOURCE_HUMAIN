@@ -3151,8 +3151,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -3307,7 +3305,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3322,7 +3334,8 @@ __webpack_require__.r(__webpack_exports__);
         Matricule: '',
         Telephone: '',
         Sex: '',
-        Date_naissance: moment__WEBPACK_IMPORTED_MODULE_1___default.a,
+        Date_naissance: '',
+        Adresse: '',
         email: '',
         password: '',
         type: '',
@@ -69804,7 +69817,7 @@ var render = function () {
                                 _vm.form.errors.has("Date_naissance"),
                             },
                             attrs: {
-                              type: "",
+                              type: "Date",
                               id: "inputDate_naissance",
                               placeholder: "Date_naissance",
                             },
@@ -70210,7 +70223,7 @@ var staticRenderFns = [
               staticClass: "nav-link",
               attrs: { href: "#activity", "data-toggle": "tab" },
             },
-            [_vm._v("Activity")]
+            [_vm._v("Activité")]
           ),
         ]),
         _vm._v(" "),
@@ -70221,7 +70234,7 @@ var staticRenderFns = [
               staticClass: "nav-link active show",
               attrs: { href: "#settings", "data-toggle": "tab" },
             },
-            [_vm._v("Settings")]
+            [_vm._v("Parametre")]
           ),
         ]),
       ]),
@@ -70723,6 +70736,46 @@ var render = function () {
                       "div",
                       { staticClass: "form-group" },
                       [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.Adresse,
+                              expression: "form.Adresse",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("Adresse"),
+                          },
+                          attrs: {
+                            name: "Adresse",
+                            id: "Adresse",
+                            placeholder: "Adresse",
+                          },
+                          domProps: { value: _vm.form.Adresse },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "Adresse", $event.target.value)
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "Adresse" },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
                         _c("input", {
                           directives: [
                             {
@@ -70752,6 +70805,96 @@ var render = function () {
                         _vm._v(" "),
                         _c("has-error", {
                           attrs: { form: _vm.form, field: "email" },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.Date_recrutement,
+                              expression: "form.Date_recrutement",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid":
+                              _vm.form.errors.has("Date_recrutement"),
+                          },
+                          attrs: {
+                            type: "Date",
+                            placeholder: "Date_recrutement",
+                            name: "Date_recrutement",
+                            id: "Date_recrutement",
+                          },
+                          domProps: { value: _vm.form.Date_recrutement },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "Date_recrutement",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "Date_recrutement" },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.Intitule,
+                              expression: "form.Intitule",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("Intitule"),
+                          },
+                          attrs: {
+                            name: "Intitule",
+                            id: "Intitule",
+                            placeholder: "Intitule",
+                          },
+                          domProps: { value: _vm.form.Intitule },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "Intitule",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "Intitule" },
                         }),
                       ],
                       1

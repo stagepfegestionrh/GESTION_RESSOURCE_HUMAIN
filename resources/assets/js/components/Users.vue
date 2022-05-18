@@ -95,7 +95,7 @@
                         <has-error :form="form" field="Telephone"></has-error>
                     </div>
                     <div class="form-group">
-                        <select name="Sex" v-model="form.Sex" id="Sex" class="form-control" :class="{ 'is-invalid': form.errors.has('Sex') }">
+                        <select  name="Sex" v-model="form.Sex" id="Sex" class="form-control" :class="{ 'is-invalid': form.errors.has('Sex') }">
                             <option value="Homme">Homme</option>
                             <option value="Femme">Femme</option>
                             <option value="Autre">Autre</option>
@@ -106,6 +106,12 @@
                         <input type="Date" name="Date_naissance" v-model="form.Date_naissance" id="Date_naissance" class="form-control" :class="{ 'is-invalid': form.errors.has('Date_naissance') }">
                         <has-error :form="form" field="Date_naissance"></has-error>
                     </div>
+                    <div class="form-group">
+                        <textarea v-model="form.Adresse" name="Adresse" id="Adresse"
+                        placeholder="Adresse"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('Adresse') }"></textarea>
+                        <has-error :form="form" field="Adresse"></has-error>
+                    </div>
 
                      <div class="form-group">
                         <input v-model="form.email" type="email" name="email"
@@ -113,8 +119,17 @@
                             class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
                         <has-error :form="form" field="email"></has-error>
                     </div>
-
-                     <div class="form-group">
+                    <div class="form-group">
+                        <input type="Date" placeholder="Date_recrutement" name="Date_recrutement" v-model="form.Date_recrutement" id="Date_recrutement" class="form-control" :class="{ 'is-invalid': form.errors.has('Date_recrutement') }">
+                        <has-error :form="form" field="Date_recrutement"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <input v-model="form.Intitule" name="Intitule" id="Intitule"
+                        placeholder="Intitule"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('Intitule') }">
+                        <has-error :form="form" field="Intitule"></has-error>
+                    </div>
+                    <div class="form-group">
                         <textarea v-model="form.bio" name="bio" id="bio"
                         placeholder="Short bio for user (Optional)"
                         class="form-control" :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
@@ -154,7 +169,7 @@
 </template>
 <script>
 import swal from 'sweetalert2';
-import moment from 'moment';
+
     export default {
         data() {
             return {
@@ -168,7 +183,8 @@ import moment from 'moment';
                     Matricule : '',
                     Telephone : '',
                     Sex : '',
-                    Date_naissance : moment,
+                    Date_naissance : '',
+                    Adresse : '',
                     email: '',
                     password: '',
                     type: '',
