@@ -42,6 +42,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        echo("hello");exit();
+        
 
         $this->validate($request,[
             'nom' => 'required|string|max:191',
@@ -57,7 +59,7 @@ class UserController extends Controller
         $newUser->Sex = $request['Sex'];
         $newUser->Date_naissance = $request['Date_naissance'];
         $newUser->Adresse = $request['Adresse'];
-        $newUser->Telephone = $request['Telepone'];
+        $newUser->Telephone = $request['Telephone'];
         $newUser->Date_recrutement = $request['Date_recrutement'];
         $newUser->Intitule = $request['Intitule'];
         $newUser->email = $request['email'];
@@ -91,15 +93,32 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
+        
         $user = auth('api')->user();
-
 
         $this->validate($request,[
             'nom' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
             'password' => 'sometimes|required|min:6'
         ]);
+        
+        $user->nom = $request['nom'];
+        $user->prenom = $request['prenom'];
+        $user->CNE = $request['CNE'];
+        $user->Matricule = $request['Matricule'];
+        $user->Sex = $request['Sex'];
+        $user->Date_naissance = $request['Date_naissance'];
+        $user->Adresse = $request['Adresse'];
+        $user->Telephone = $request['Telephone'];
+        $user->Date_recrutement = $request['Date_recrutement'];
+        $user->Intitule = $request['Intitule'];
+        $user->email = $request['email'];
+        $user->type = $request['type'];
+        $user->bio = $request['bio'];
+        $user->photo = $request['photo'];
+        $user->password = Hash::make($request['password']);
 
+        $user->save();
 
         $currentPhoto = $user->photo;
 
@@ -122,23 +141,6 @@ class UserController extends Controller
             $request->merge(['password' => Hash::make($request['password'])]);
         }
 
-        $user->nom = $request['nom'];
-        $user->prenom = $request['prenom'];
-        $user->CNE = $request['CNE'];
-        $user->Matricule = $request['Matricule'];
-        $user->Sex = $request['Sex'];
-        $user->Date_naissance = $request['Date_naissance'];
-        $user->Adresse = $request['Adresse'];
-        $user->Telephone = $request['Telepone'];
-        $user->Date_recrutement = $request['Date_recrutement'];
-        $user->Intitule = $request['Intitule'];
-        $user->email = $request['email'];
-        $user->type = $request['type'];
-        $user->bio = $request['bio'];
-        $user->photo = $request['photo'];
-        $user->password = Hash::make($request['password']);
-
-        $user->save();
 
        // $user->update($request->all());
         return ['message' => "Success"];

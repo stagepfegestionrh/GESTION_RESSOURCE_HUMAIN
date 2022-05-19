@@ -186,6 +186,8 @@ import swal from 'sweetalert2';
                     Date_naissance : '',
                     Adresse : '',
                     email: '',
+                    Date_recrutement: '',
+                    Intitule: '',
                     password: '',
                     type: '',
                     bio: '',
