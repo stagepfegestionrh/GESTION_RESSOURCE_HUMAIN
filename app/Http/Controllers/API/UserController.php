@@ -41,9 +41,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        echo("hello");exit();
-        
+    { 
 
         $this->validate($request,[
             'nom' => 'required|string|max:191',
