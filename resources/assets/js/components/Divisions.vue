@@ -127,6 +127,11 @@ export default {
                 this.form.reset();
                 $('#addNew').modal('show');
             },
+            newDivModal(){
+                this.editmode = false;
+                this.form.reset();
+                $('#showService').madal('show');
+            }
 
         },
          created() {

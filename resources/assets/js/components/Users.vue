@@ -40,8 +40,8 @@
                         <a href="#" @click="deleteUser(user.id)">
                             <i class="fa fa-trash red"></i>
                         </a>
-
                     </td>
+
                   </tr>
                 </tbody></table>
               </div>
@@ -285,7 +285,7 @@ import swal from 'sweetalert2';
            Fire.$on('AfterCreate',() => {
                this.loadUsers();
            });
-        //    setInterval(() => this.loadUsers(), 3000);
+        //setInterval(() => this.loadUsers(), 3000);
         }
 
     }
