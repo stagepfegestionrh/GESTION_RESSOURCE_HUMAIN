@@ -62,8 +62,8 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                        <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Activity</a></li>
-                        <li class="nav-item"><a class="nav-link active show" href="#settings" data-toggle="tab">Settings</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Activité</a></li>
+                        <li class="nav-item"><a class="nav-link active show" href="#settings" data-toggle="tab">Parametre</a></li>
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName" class="col-sm-2 control-label">Prenom</label>
+                                    <label for="inputPrenom" class="col-sm-2 control-label">Prenom</label>
 
                                     <div class="col-sm-12">
                                     <input type="" v-model="form.prenom" class="form-control" id="inputprenom" placeholder="prenom" :class="{ 'is-invalid': form.errors.has('prenom') }">
@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputName" class="col-sm-2 control-label">CNE</label>
+                                    <label for="inputCNE" class="col-sm-2 control-label">CNE</label>
 
                                     <div class="col-sm-12">
                                     <input type="" v-model="form.CNE" class="form-control" id="inputCNE" placeholder="CNE" :class="{ 'is-invalid': form.errors.has('CNE') }">
@@ -100,7 +100,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail" class="col-sm-2 control-label">Matricule</label>
+                                    <label for="inputMatricule" class="col-sm-2 control-label">Matricule</label>
 
                                     <div class="col-sm-12">
                                     <input type="email" v-model="form.Matricule" class="form-control" id="inputMatricule" placeholder="Matricule"  :class="{ 'is-invalid': form.errors.has('Matricule') }">
@@ -108,7 +108,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail" class="col-sm-2 control-label">Sex</label>
+                                    <label for="inputTelephone" class="col-sm-2 control-label">Telephone</label>
+    
+                                    <div class="col-sm-12">
+                                    <input type="" v-model="form.Telephone" class="form-control" id="inputTelephone" placeholder="Telephone"  :class="{ 'is-invalid': form.errors.has('Telephone') }">
+                                     <has-error :form="form" field="Telephone"></has-error>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <label for="inputSex" class="col-sm-2 control-label">Sex</label>
 
                                     <div class="col-sm-12">
                                     <input type="" v-model="form.Sex" class="form-control" id="inputSex" placeholder="Sex"  :class="{ 'is-invalid': form.errors.has('Sex') }">
@@ -116,29 +124,20 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail" class="col-sm-2 control-label">Date_naissance</label>
+                                    <label for="inputDate_naissance" class="col-sm-2 control-label">Date_naissance</label>
 
                                     <div class="col-sm-12">
-                                    <input type="" v-model="form.Date_naissance" class="form-control" id="inputDate_naissance" placeholder="Date_naissance"  :class="{ 'is-invalid': form.errors.has('Date_naissance') }">
+                                    <input type="Date" v-model="form.Date_naissance" class="form-control" id="inputDate_naissance" placeholder="Date_naissance"  :class="{ 'is-invalid': form.errors.has('Date_naissance') }">
                                      <has-error :form="form" field="Date_naissance"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                        <label for="inputExperience" class="col-sm-2 control-label">Adresse</label>
-    
+                                        <label for="inputAdresse" class="col-sm-2 control-label">Adresse</label>
                                         <div class="col-sm-12">
                                         <textarea  v-model="form.Adresse" class="form-control" id="inputAdresse" placeholder="Adresse" :class="{ 'is-invalid': form.errors.has('Adresse') }"></textarea>
                                          <has-error :form="form" field="Adresse"></has-error>
                                         </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputEmail" class="col-sm-2 control-label">Telephone</label>
-
-                                    <div class="col-sm-12">
-                                    <input type="number" v-model="form.Telephone" class="form-control" id="inputTelephone" placeholder="Telephone"  :class="{ 'is-invalid': form.errors.has('Telephone') }">
-                                     <has-error :form="form" field="Telephone"></has-error>
-                                    </div>
-                                </div>  
                                 <div class="form-group">
                                     <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
@@ -147,6 +146,22 @@
                                      <has-error :form="form" field="email"></has-error>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="inputDate_recrutement" class="col-sm-2 control-label">Date_recrutement</label>
+                                    <div class="col-sm-12">
+                                    <input type="Date" v-model="form.Date_recrutement" class="form-control" id="inputDate_recrutement" placeholder="Date_recrutement"  :class="{ 'is-invalid': form.errors.has('Date_recrutement') }">
+                                     <has-error :form="form" field="Date_recrutement"></has-error>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputIntitule" class="col-sm-2 control-label">Intitule</label>
+    
+                                    <div class="col-sm-12">
+                                    <input type="" v-model="form.Intitule" class="form-control" id="inputIntitule" placeholder="Intitule"  :class="{ 'is-invalid': form.errors.has('Intitule') }">
+                                     <has-error :form="form" field="Intitule"></has-error>
+                                    </div>
+                                </div>  
+
                                 <div class="form-group">
                                     <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
 
@@ -206,14 +221,16 @@
                  form: new Form({
                     id:'',
                     nom : '',
-                    prenom :'',
+                    prenom : '',
                     CNE : '',
                     Matricule : '',
+                    Telephone : '',
                     Sex : '',
                     Date_naissance : '',
                     Adresse : '',
-                    Telephone : '',
                     email: '',
+                    Date_recrutement: '',
+                    Intitule: '',
                     password: '',
                     type: '',
                     bio: '',

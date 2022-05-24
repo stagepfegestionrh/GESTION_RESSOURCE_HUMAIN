@@ -73,16 +73,32 @@ let routes = [{
         components: require('./components/Profile.vue')
     },
     {
-        path: '*',
-        components: require('./components/Dashboard.vue')
-    },
-    {
         path: '/Division',
         components: require('./components/Divisions.vue')
     },
     {
         path: '/Service',
         components: require('./components/Service.vue')
+    },
+    {
+        path: '/Demande_conge',
+        components: require('./components/Demande_conge.vue')
+    },
+    {
+        path: '/Demande_document_RH',
+        components: require('./components/Demande_doc_RH.vue')
+    },
+    {
+        path: '/Depot_Demande_conge',
+        components: require('./components/Depot_Demande_conge.vue')
+    },
+    {
+        path: '/Depot_Demande_document_RH',
+        components: require('./components/Depot_Demande_doc_RH.vue')
+    },
+    {
+        path: '*',
+        components: require('./components/Dashboard.vue')
     },
 ]
 

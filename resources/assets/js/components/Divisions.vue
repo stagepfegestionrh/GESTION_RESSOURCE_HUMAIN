@@ -139,6 +139,7 @@ export default {
                     confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
 
+
                         // Send request to the server
                         if (result.value) {
                                 this.form.delete('api/division/'+id).then(()=>{

@@ -73,14 +73,58 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <li class="nav-item">
             <router-link to="/dashboard" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt blue"></i>
+                <i class="nav-icon fas fa-tachometer-alt "></i>
                 <p>
                 Tableau de bord
 
                 </p>
             </router-link>
             </li>
-
+            <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fa-regular fa-rectangle-list"></i>
+              <p>
+                Liste des demandes
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/Demande_conge" class="nav-link">
+                <i class="fa-solid fa-calendar-days fa-fw"></i>
+                  <p>Demande de congé</p>
+                </router-link>
+                <router-link to="/Demande_document_RH" class="nav-link">
+                <i class="fa-solid fa-file fa-fw"></i>
+                  <p>Demande de document RH</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+          @can('isUser')
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-cog "></i>
+              <p>
+                Depot d'une demande
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/Depot_Demande_conge" class="nav-link">
+                <i class="fa-solid fa-calendar-days fa-fw"></i>
+                  <p>Demande de congé</p>
+                </router-link>
+                <router-link to="/Depot_Demande_document_RH" class="nav-link">
+                <i class="fa-solid fa-file fa-fw"></i>
+                  <p>Demande de document RH</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+          @endcan
+          @can('isAdmin')
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-cog green"></i>
@@ -103,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             </ul>
           </li>
-          @can('isAdmin')
+          
           <li class="nav-item">
                 <router-link to="/developer" class="nav-link">
                     <i class="nav-icon fas fa-cogs"></i>
@@ -115,7 +159,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          @endcan
           <li class="nav-item">
                 <router-link to="/profile" class="nav-link">
-                    <i class="nav-icon fas fa-user orange"></i>
+                    <i class="nav-icon fas fa-user "></i>
                     <p>
                         Profile
                     </p>
@@ -126,7 +170,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a class="nav-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">
-                    <i class="nav-icon fa fa-power-off red"></i>
+                    <i class="nav-icon fa fa-power-off "></i>
                     <p>
                         {{ __('Logout') }}
                     </p>
