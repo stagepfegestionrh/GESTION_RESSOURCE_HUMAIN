@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -10,11 +9,11 @@ import Vue from 'vue';
 window.Vue = require('vue');
 import moment from 'moment';
 import {
-  Button,
-  HasError,
-  AlertError,
-  AlertErrors,
-  AlertSuccess
+    Button,
+    HasError,
+    AlertError,
+    AlertErrors,
+    AlertSuccess
 } from 'vform/src/components/bootstrap5'
 // 'vform/src/components/bootstrap4'
 // 'vform/src/components/tailwind'
@@ -32,10 +31,10 @@ import swal from 'sweetalert2'
 window.swal = swal;
 
 const toast = swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
 });
 
 window.toast = toast;
@@ -55,52 +54,55 @@ Vue.use(VueProgressBar, {
     color: 'rgb(143, 255, 199)',
     failedColor: 'red',
     height: '3px'
-  })
+})
 
-let routes = [
-    { 
-        path: '/dashboard', 
+let routes = [{
+        path: '/dashboard',
         components: require('./components/Dashboard.vue')
     },
-    { 
-        path: '/developer', 
-        components: require('./components/Developer.vue') 
+    {
+        path: '/developer',
+        components: require('./components/Developer.vue')
     },
-    { 
-        path: '/users', 
-        components: require('./components/Users.vue') 
+    {
+        path: '/users',
+        components: require('./components/Users.vue')
     },
-    { 
-        path: '/profile', 
-        components: require('./components/Profile.vue') 
+    {
+        path: '/profile',
+        components: require('./components/Profile.vue')
     },
-    { 
-        path: '*', 
-        components: require('./components/Dashboard.vue') 
+    {
+        path: '*',
+        components: require('./components/Dashboard.vue')
     },
-    { 
-        path: '/Division', 
-        components: require('./components/Divisions.vue') 
+    {
+        path: '/Division',
+        components: require('./components/Divisions.vue')
+    },
+    {
+        path: '/Service',
+        components: require('./components/Service.vue')
     },
 ]
 
 const router = new VueRouter({
     mode: 'hash',
-    routes:routes // short for routes: routes
-  })
+    routes: routes // short for routes: routes
+})
 
 
 
-Vue.filter('upText', function(text){
+Vue.filter('upText', function(text) {
     return text.charAt(0).toUpperCase() + text.slice(1)
 });
 
-Vue.filter('myDate',function(created){
+Vue.filter('myDate', function(created) {
     return moment(created).format('MMMM Do YYYY');
 });
 
 
-window.Fire =  new Vue();
+window.Fire = new Vue();
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -131,13 +133,13 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     router,
-    data:{
+    data: {
         search: ''
     },
-    methods:{
+    methods: {
         searchit: _.debounce(() => {
             Fire.$emit('searching');
-        },1000),
+        }, 1000),
 
         printme() {
             window.print();

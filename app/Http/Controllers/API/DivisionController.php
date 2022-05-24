@@ -6,6 +6,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Division;
+use App\User;
 use Illuminate\Support\Facades\Hash;
 
 class DivisionController extends Controller
@@ -17,7 +18,15 @@ class DivisionController extends Controller
      */
     public function index()
     {
-        return Division::latest()->paginate(20);
+        $divisions =  Division::latest()->paginate(20);
+
+        foreach($divisions as $div){
+            
+            $chef_division =   User::findOrFail($div->Chef_division); 
+            $div->Chef_division = $chef_division ? $chef_division->nom." ".$chef_division->prenom : '';
+
+        }
+        return $divisions;
     }
 
     /**
@@ -38,15 +47,23 @@ class DivisionController extends Controller
      */
     public function store(Request $request)
     {
+  
+       
         $this->validate($request,[
             'Division' => 'required|string|max:191',
-            'Chefdivision' => 'required|string|email|max:191|unique:users',
+            'Chef_division' => 'required',
         ]);
 
-        return Division::create([
-            'Division' => $request['Division'],
-            'Chefdivision' => $request['Chefdivision'],
-        ]);
+        $newDivision = New Division();
+        $newDivision->Division = $request['Division'];
+        $newDivision->Chef_division = $request['Chef_division'];
+
+        $newDivision->save();
+
+       // return Division::create([
+           // 'Division' => $request['Division'],
+          //  'Chefdivision' => $request['Chefdivision'],
+       // ]);
 
         return ['message' => "created"];
     }
@@ -82,7 +99,18 @@ class DivisionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $division = Division::findOrFail($id);
+        $this->validate($request,[
+            'Division' => 'required|string|max:191',
+            'Chef_division' => 'required',
+        ]);
+        // $division ->update($request->all());
+        $division -> Division = $request['Division'];
+        $division -> Chef_division = $request['Chef_division'];
+        $division-> save();
+
+
+        return ['message' => 'Updated the division info'];
     }
 
     /**
@@ -91,8 +119,26 @@ class DivisionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id){
+        $division = Division::findOrFail($id);
+
+        $division->delete();
+
+        return ['message' => 'Division Deleted'];
     }
+    
+    public function UserDivisions(request $request){
+       $userdev = User::all();
+       $result = [];
+      // $userdev = Division::all();
+       foreach($userdev as $user){
+           if(sizeof(Division::where('Chef_division',$user->id)->get())==0)
+            $result[] =  $user;
+       }
+
+        return ['data' => $result]; // or return response()->json(['data' => employees]);
+    }
+    
+ 
+
 }

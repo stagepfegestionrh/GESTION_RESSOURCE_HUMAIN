@@ -21,4 +21,8 @@ Route::apiResources(['user' => 'API\UserController']);
 Route::get('profile', 'API\UserController@profile');
 Route::put('profile', 'API\UserController@updateProfile');
 Route::get('division','API\DivisionController@index');
-Route::post('division','API\DivisionController@create');
+Route::post('division','API\DivisionController@store');
+Route::get('UserDivisions','API\DivisionController@UserDivisions');
+Route::put('division/{id}', 'API\DivisionController@update');
+Route::redirect('/Division','/Service');
+

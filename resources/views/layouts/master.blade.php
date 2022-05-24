@@ -96,8 +96,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Utilisateurs</p>
                 </router-link>
                 <router-link to="/Division" class="nav-link">
-                  <i class="fas fa-layer-group" style='font-size:20px'></i>
-                  <p>Division</p>
+                  <i class="fas fa-layer-group pr-2" style='font-size:17px'></i>
+                  <p>Divisions</p>
                 </router-link>
               </li>
 
