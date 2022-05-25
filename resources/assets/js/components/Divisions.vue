@@ -37,10 +37,7 @@
                                          <a href="#" @click="showDivision(div.id)">
                                             <i class="fas fa-eye green"></i>
                                         </a>
-                                        /
-                                        <a href="" @click="">
-                                            <i class="fa fa-external-link purple"></i>
-                                        </a>
+                                        
                                     </td>
                                  </tr>
                             </tbody>
