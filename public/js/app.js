@@ -10279,7 +10279,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.widget-user-header{\n    background-position: center center;\n    background-size: cover;\n    height: 250px !important;\n}\n.widget-user .card-footer{\n    padding: 0;\n}\n\n", ""]);
+exports.push([module.i, "\n.widget-user-header{\r\n    background-position: center center;\r\n    background-size: cover;\r\n    height: 250px !important;\n}\n.widget-user .card-footer{\r\n    padding: 0;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -64035,7 +64035,7 @@ module.exports = function (css) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-* sweetalert2 v11.4.13
+* sweetalert2 v11.4.16
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -64068,7 +64068,7 @@ module.exports = function (css) {
 
   const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1);
   /**
-   * @param {NodeList | HTMLCollection | NamedNodeMap} nodeList
+   * @param {NodeList | HTMLCollection | NamedNodeMap | DOMTokenList} nodeList
    * @returns {array}
    */
 
@@ -64303,33 +64303,110 @@ module.exports = function (css) {
    */
 
   const getContainer = () => document.body.querySelector(".".concat(swalClasses.container));
+  /**
+   * @param {string} selectorString
+   * @returns {HTMLElement | null}
+   */
+
   const elementBySelector = selectorString => {
     const container = getContainer();
     return container ? container.querySelector(selectorString) : null;
   };
+  /**
+   * @param {string} className
+   * @returns {HTMLElement | null}
+   */
 
   const elementByClass = className => {
     return elementBySelector(".".concat(className));
   };
+  /**
+   * @returns {HTMLElement | null}
+   */
+
 
   const getPopup = () => elementByClass(swalClasses.popup);
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getIcon = () => elementByClass(swalClasses.icon);
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getTitle = () => elementByClass(swalClasses.title);
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getHtmlContainer = () => elementByClass(swalClasses['html-container']);
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getImage = () => elementByClass(swalClasses.image);
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getProgressSteps = () => elementByClass(swalClasses['progress-steps']);
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getValidationMessage = () => elementByClass(swalClasses['validation-message']);
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getConfirmButton = () => elementBySelector(".".concat(swalClasses.actions, " .").concat(swalClasses.confirm));
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getDenyButton = () => elementBySelector(".".concat(swalClasses.actions, " .").concat(swalClasses.deny));
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getInputLabel = () => elementByClass(swalClasses['input-label']);
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getLoader = () => elementBySelector(".".concat(swalClasses.loader));
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getCancelButton = () => elementBySelector(".".concat(swalClasses.actions, " .").concat(swalClasses.cancel));
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getActions = () => elementByClass(swalClasses.actions);
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getFooter = () => elementByClass(swalClasses.footer);
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getTimerProgressBar = () => elementByClass(swalClasses['timer-progress-bar']);
+  /**
+   * @returns {HTMLElement | null}
+   */
+
   const getCloseButton = () => elementByClass(swalClasses.close); // https://github.com/jkup/focusable/blob/master/index.js
 
   const focusable = "\n  a[href],\n  area[href],\n  input:not([disabled]),\n  select:not([disabled]),\n  textarea:not([disabled]),\n  button:not([disabled]),\n  iframe,\n  object,\n  embed,\n  [tabindex=\"0\"],\n  [contenteditable],\n  audio[controls],\n  video[controls],\n  summary\n";
+  /**
+   * @returns {HTMLElement[]}
+   */
+
   const getFocusableElements = () => {
     const focusableElementsWithTabindex = toArray(getPopup().querySelectorAll('[tabindex]:not([tabindex="-1"]):not([tabindex="0"])')) // sort according to tabindex
     .sort((a, b) => {
@@ -64347,12 +64424,24 @@ module.exports = function (css) {
     const otherFocusableElements = toArray(getPopup().querySelectorAll(focusable)).filter(el => el.getAttribute('tabindex') !== '-1');
     return uniqueArray(focusableElementsWithTabindex.concat(otherFocusableElements)).filter(el => isVisible(el));
   };
+  /**
+   * @returns {boolean}
+   */
+
   const isModal = () => {
     return hasClass(document.body, swalClasses.shown) && !hasClass(document.body, swalClasses['toast-shown']) && !hasClass(document.body, swalClasses['no-backdrop']);
   };
+  /**
+   * @returns {boolean}
+   */
+
   const isToast = () => {
     return getPopup() && hasClass(getPopup(), swalClasses.toast);
   };
+  /**
+   * @returns {boolean}
+   */
+
   const isLoading = () => {
     return getPopup().hasAttribute('data-loading');
   };
@@ -64403,6 +64492,10 @@ module.exports = function (css) {
 
     return true;
   };
+  /**
+   * @param {HTMLElement} elem
+   * @param {SweetAlertOptions} params
+   */
 
   const removeCustomClasses = (elem, params) => {
     toArray(elem.classList).forEach(className => {
@@ -64411,6 +64504,12 @@ module.exports = function (css) {
       }
     });
   };
+  /**
+   * @param {HTMLElement} elem
+   * @param {SweetAlertOptions} params
+   * @param {string} className
+   */
+
 
   const applyCustomClass = (elem, params, className) => {
     removeCustomClasses(elem, params);
@@ -64558,20 +64657,55 @@ module.exports = function (css) {
   const hide = elem => {
     elem.style.display = 'none';
   };
+  /**
+   * @param {HTMLElement} parent
+   * @param {string} selector
+   * @param {string} property
+   * @param {string} value
+   */
+
   const setStyle = (parent, selector, property, value) => {
+    /** @type {HTMLElement} */
     const el = parent.querySelector(selector);
 
     if (el) {
       el.style[property] = value;
     }
   };
-  const toggle = (elem, condition, display) => {
+  /**
+   * @param {HTMLElement} elem
+   * @param {any} condition
+   * @param {string} display
+   */
+
+  const toggle = function (elem, condition) {
+    let display = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'flex';
     condition ? show(elem, display) : hide(elem);
-  }; // borrowed from jquery $(elem).is(':visible') implementation
+  };
+  /**
+   * borrowed from jquery $(elem).is(':visible') implementation
+   *
+   * @param {HTMLElement} elem
+   * @returns {boolean}
+   */
 
   const isVisible = elem => !!(elem && (elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length));
+  /**
+   * @returns {boolean}
+   */
+
   const allButtonsAreHidden = () => !isVisible(getConfirmButton()) && !isVisible(getDenyButton()) && !isVisible(getCancelButton());
-  const isScrollable = elem => !!(elem.scrollHeight > elem.clientHeight); // borrowed from https://stackoverflow.com/a/46352119
+  /**
+   * @returns {boolean}
+   */
+
+  const isScrollable = elem => !!(elem.scrollHeight > elem.clientHeight);
+  /**
+   * borrowed from https://stackoverflow.com/a/46352119
+   *
+   * @param {HTMLElement} elem
+   * @returns {boolean}
+   */
 
   const hasCssAnimation = elem => {
     const style = window.getComputedStyle(elem);
@@ -64579,6 +64713,11 @@ module.exports = function (css) {
     const transDuration = parseFloat(style.getPropertyValue('transition-duration') || '0');
     return animDuration > 0 || transDuration > 0;
   };
+  /**
+   * @param {number} timer
+   * @param {boolean} reset
+   */
+
   const animateTimerProgressBar = function (timer) {
     let reset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     const timerProgressBar = getTimerProgressBar();
@@ -64615,16 +64754,24 @@ module.exports = function (css) {
 
   const RESTORE_FOCUS_TIMEOUT = 100;
 
+  /** @type {GlobalState} */
+
   const globalState = {};
 
   const focusPreviousActiveElement = () => {
-    if (globalState.previousActiveElement && globalState.previousActiveElement.focus) {
+    if (globalState.previousActiveElement instanceof HTMLElement) {
       globalState.previousActiveElement.focus();
       globalState.previousActiveElement = null;
     } else if (document.body) {
       document.body.focus();
     }
-  }; // Restore previous active (focused) element
+  };
+  /**
+   * Restore previous active (focused) element
+   *
+   * @param {boolean} returnFocus
+   * @returns {Promise}
+   */
 
 
   const restoreActiveElement = returnFocus => {
@@ -64645,6 +64792,9 @@ module.exports = function (css) {
   };
 
   const sweetHTML = "\n <div aria-labelledby=\"".concat(swalClasses.title, "\" aria-describedby=\"").concat(swalClasses['html-container'], "\" class=\"").concat(swalClasses.popup, "\" tabindex=\"-1\">\n   <button type=\"button\" class=\"").concat(swalClasses.close, "\"></button>\n   <ul class=\"").concat(swalClasses['progress-steps'], "\"></ul>\n   <div class=\"").concat(swalClasses.icon, "\"></div>\n   <img class=\"").concat(swalClasses.image, "\" />\n   <h2 class=\"").concat(swalClasses.title, "\" id=\"").concat(swalClasses.title, "\"></h2>\n   <div class=\"").concat(swalClasses['html-container'], "\" id=\"").concat(swalClasses['html-container'], "\"></div>\n   <input class=\"").concat(swalClasses.input, "\" />\n   <input type=\"file\" class=\"").concat(swalClasses.file, "\" />\n   <div class=\"").concat(swalClasses.range, "\">\n     <input type=\"range\" />\n     <output></output>\n   </div>\n   <select class=\"").concat(swalClasses.select, "\"></select>\n   <div class=\"").concat(swalClasses.radio, "\"></div>\n   <label for=\"").concat(swalClasses.checkbox, "\" class=\"").concat(swalClasses.checkbox, "\">\n     <input type=\"checkbox\" />\n     <span class=\"").concat(swalClasses.label, "\"></span>\n   </label>\n   <textarea class=\"").concat(swalClasses.textarea, "\"></textarea>\n   <div class=\"").concat(swalClasses['validation-message'], "\" id=\"").concat(swalClasses['validation-message'], "\"></div>\n   <div class=\"").concat(swalClasses.actions, "\">\n     <div class=\"").concat(swalClasses.loader, "\"></div>\n     <button type=\"button\" class=\"").concat(swalClasses.confirm, "\"></button>\n     <button type=\"button\" class=\"").concat(swalClasses.deny, "\"></button>\n     <button type=\"button\" class=\"").concat(swalClasses.cancel, "\"></button>\n   </div>\n   <div class=\"").concat(swalClasses.footer, "\"></div>\n   <div class=\"").concat(swalClasses['timer-progress-bar-container'], "\">\n     <div class=\"").concat(swalClasses['timer-progress-bar'], "\"></div>\n   </div>\n </div>\n").replace(/(^|\n)\s*/g, '');
+  /**
+   * @returns {boolean}
+   */
 
   const resetOldContainer = () => {
     const oldContainer = getContainer();
@@ -64666,9 +64816,15 @@ module.exports = function (css) {
     const popup = getPopup();
     const input = getDirectChildByClass(popup, swalClasses.input);
     const file = getDirectChildByClass(popup, swalClasses.file);
+    /** @type {HTMLInputElement} */
+
     const range = popup.querySelector(".".concat(swalClasses.range, " input"));
+    /** @type {HTMLOutputElement} */
+
     const rangeOutput = popup.querySelector(".".concat(swalClasses.range, " output"));
     const select = getDirectChildByClass(popup, swalClasses.select);
+    /** @type {HTMLInputElement} */
+
     const checkbox = popup.querySelector(".".concat(swalClasses.checkbox, " input"));
     const textarea = getDirectChildByClass(popup, swalClasses.textarea);
     input.oninput = resetValidationMessage;
@@ -64684,11 +64840,20 @@ module.exports = function (css) {
 
     range.onchange = () => {
       resetValidationMessage();
-      range.nextSibling.value = range.value;
+      rangeOutput.value = range.value;
     };
   };
+  /**
+   * @param {string | HTMLElement} target
+   * @returns {HTMLElement}
+   */
+
 
   const getTarget = target => typeof target === 'string' ? document.querySelector(target) : target;
+  /**
+   * @param {SweetAlertOptions} params
+   */
+
 
   const setupAccessibility = params => {
     const popup = getPopup();
@@ -64699,14 +64864,20 @@ module.exports = function (css) {
       popup.setAttribute('aria-modal', 'true');
     }
   };
+  /**
+   * @param {HTMLElement} targetElement
+   */
+
 
   const setupRTL = targetElement => {
     if (window.getComputedStyle(targetElement).direction === 'rtl') {
       addClass(getContainer(), swalClasses.rtl);
     }
   };
-  /*
+  /**
    * Add modal + backdrop + no-war message for Russians to DOM
+   *
+   * @param {SweetAlertOptions} params
    */
 
 
@@ -64735,6 +64906,10 @@ module.exports = function (css) {
     addInputChangeListeners();
     noWarMessageForRussians(container, params);
   };
+  /**
+   * @param {HTMLElement} container
+   * @param {SweetAlertOptions} params
+   */
 
   const noWarMessageForRussians = (container, params) => {
     if (params.toast) {
@@ -64765,6 +64940,12 @@ module.exports = function (css) {
     }, {
       text: 'ФИНСКИЙ ДРУГ РОССИИ <br> говорит ПО-РУССКИ о спецоперации',
       youtubeId: 'hkCYb6edUrQ'
+    }, {
+      text: 'ЮРИЙ ПОДОЛЯКА честно <br> о генералах РУССКОЙ АРМИИ',
+      youtubeId: 'w4-_8BJKfpk'
+    }, {
+      text: 'Полковник ФСБ СТРЕЛКОВ <br> об успехах РОССИИ в спецоперации',
+      youtubeId: 'saK5UTKroDA'
     }]); // The message will only be shown to Russian users visiting Russian sites
 
     if (navigator.language === 'ru' && location.host.match(/\.(ru|su|xn--p1ai)$/)) {
@@ -64807,6 +64988,11 @@ module.exports = function (css) {
       setInnerHtml(target, param.toString());
     }
   };
+  /**
+   * @param {HTMLElement} target
+   * @param {HTMLElement} elem
+   */
+
 
   const handleJqueryElem = (target, elem) => {
     target.textContent = '';
@@ -64819,6 +65005,10 @@ module.exports = function (css) {
       target.appendChild(elem.cloneNode(true));
     }
   };
+
+  /**
+   * @returns {'webkitAnimationEnd' | 'animationend' | false}
+   */
 
   const animationEndEvent = (() => {
     // Prevent run in Node env
@@ -64845,7 +65035,12 @@ module.exports = function (css) {
     return false;
   })();
 
-  // https://github.com/twbs/bootstrap/blob/master/js/src/modal.js
+  /**
+   * Measure scrollbar width for padding body during modal show/hide
+   * https://github.com/twbs/bootstrap/blob/master/js/src/modal.js
+   *
+   * @returns {number}
+   */
 
   const measureScrollbar = () => {
     const scrollDiv = document.createElement('div');
@@ -64855,6 +65050,11 @@ module.exports = function (css) {
     document.body.removeChild(scrollDiv);
     return scrollbarWidth;
   };
+
+  /**
+   * @param {SweetAlert2} instance
+   * @param {SweetAlertOptions} params
+   */
 
   const renderActions = (instance, params) => {
     const actions = getActions();
@@ -64874,6 +65074,11 @@ module.exports = function (css) {
     setInnerHtml(loader, params.loaderHtml);
     applyCustomClass(loader, params, 'loader');
   };
+  /**
+   * @param {HTMLElement} actions
+   * @param {HTMLElement} loader
+   * @param {SweetAlertOptions} params
+   */
 
   function renderButtons(actions, loader, params) {
     const confirmButton = getConfirmButton();
@@ -64896,6 +65101,13 @@ module.exports = function (css) {
       }
     }
   }
+  /**
+   * @param {HTMLElement} confirmButton
+   * @param {HTMLElement} denyButton
+   * @param {HTMLElement} cancelButton
+   * @param {SweetAlertOptions} params
+   */
+
 
   function handleButtonsStyling(confirmButton, denyButton, cancelButton, params) {
     if (!params.buttonsStyling) {
@@ -64919,6 +65131,12 @@ module.exports = function (css) {
       addClass(cancelButton, swalClasses['default-outline']);
     }
   }
+  /**
+   * @param {HTMLElement} button
+   * @param {'confirm' | 'deny' | 'cancel'} buttonType
+   * @param {SweetAlertOptions} params
+   */
+
 
   function renderButton(button, buttonType, params) {
     toggle(button, params["show".concat(capitalizeFirstLetter(buttonType), "Button")], 'inline-block');
@@ -64932,32 +65150,10 @@ module.exports = function (css) {
     addClass(button, params["".concat(buttonType, "ButtonClass")]);
   }
 
-  function handleBackdropParam(container, backdrop) {
-    if (typeof backdrop === 'string') {
-      container.style.background = backdrop;
-    } else if (!backdrop) {
-      addClass([document.documentElement, document.body], swalClasses['no-backdrop']);
-    }
-  }
-
-  function handlePositionParam(container, position) {
-    if (position in swalClasses) {
-      addClass(container, swalClasses[position]);
-    } else {
-      warn('The "position" parameter is not valid, defaulting to "center"');
-      addClass(container, swalClasses.center);
-    }
-  }
-
-  function handleGrowParam(container, grow) {
-    if (grow && typeof grow === 'string') {
-      const growClass = "grow-".concat(grow);
-
-      if (growClass in swalClasses) {
-        addClass(container, swalClasses[growClass]);
-      }
-    }
-  }
+  /**
+   * @param {SweetAlert2} instance
+   * @param {SweetAlertOptions} params
+   */
 
   const renderContainer = (instance, params) => {
     const container = getContainer();
@@ -64972,6 +65168,47 @@ module.exports = function (css) {
 
     applyCustomClass(container, params, 'container');
   };
+  /**
+   * @param {HTMLElement} container
+   * @param {SweetAlertOptions['backdrop']} backdrop
+   */
+
+  function handleBackdropParam(container, backdrop) {
+    if (typeof backdrop === 'string') {
+      container.style.background = backdrop;
+    } else if (!backdrop) {
+      addClass([document.documentElement, document.body], swalClasses['no-backdrop']);
+    }
+  }
+  /**
+   * @param {HTMLElement} container
+   * @param {SweetAlertOptions['position']} position
+   */
+
+
+  function handlePositionParam(container, position) {
+    if (position in swalClasses) {
+      addClass(container, swalClasses[position]);
+    } else {
+      warn('The "position" parameter is not valid, defaulting to "center"');
+      addClass(container, swalClasses.center);
+    }
+  }
+  /**
+   * @param {HTMLElement} container
+   * @param {SweetAlertOptions['grow']} grow
+   */
+
+
+  function handleGrowParam(container, grow) {
+    if (grow && typeof grow === 'string') {
+      const growClass = "grow-".concat(grow);
+
+      if (growClass in swalClasses) {
+        addClass(container, swalClasses[growClass]);
+      }
+    }
+  }
 
   /**
    * This module contains `WeakMap`s for each effectively-"private  property" that a `Swal` has.
@@ -65277,6 +65514,11 @@ module.exports = function (css) {
     return textarea;
   };
 
+  /**
+   * @param {SweetAlert2} instance
+   * @param {SweetAlertOptions} params
+   */
+
   const renderContent = (instance, params) => {
     const htmlContainer = getHtmlContainer();
     applyCustomClass(htmlContainer, params, 'htmlContainer'); // Content as HTML
@@ -65296,6 +65538,11 @@ module.exports = function (css) {
     renderInput(instance, params);
   };
 
+  /**
+   * @param {SweetAlert2} instance
+   * @param {SweetAlertOptions} params
+   */
+
   const renderFooter = (instance, params) => {
     const footer = getFooter();
     toggle(footer, params.footer);
@@ -65308,6 +65555,11 @@ module.exports = function (css) {
     applyCustomClass(footer, params, 'footer');
   };
 
+  /**
+   * @param {SweetAlert2} instance
+   * @param {SweetAlertOptions} params
+   */
+
   const renderCloseButton = (instance, params) => {
     const closeButton = getCloseButton();
     setInnerHtml(closeButton, params.closeButtonHtml); // Custom class
@@ -65316,6 +65568,11 @@ module.exports = function (css) {
     toggle(closeButton, params.showCloseButton);
     closeButton.setAttribute('aria-label', params.closeButtonAriaLabel);
   };
+
+  /**
+   * @param {SweetAlert2} instance
+   * @param {SweetAlertOptions} params
+   */
 
   const renderIcon = (instance, params) => {
     const innerParams = privateProps.innerParams.get(instance);
@@ -65344,6 +65601,10 @@ module.exports = function (css) {
 
     addClass(icon, params.showClass.icon);
   };
+  /**
+   * @param {HTMLElement} icon
+   * @param {SweetAlertOptions} params
+   */
 
   const applyStyles = (icon, params) => {
     for (const iconType in iconTypes) {
@@ -65365,6 +65626,8 @@ module.exports = function (css) {
   const adjustSuccessIconBackgroundColor = () => {
     const popup = getPopup();
     const popupBackgroundColor = window.getComputedStyle(popup).getPropertyValue('background-color');
+    /** @type {NodeListOf<HTMLElement>} */
+
     const successIconParts = popup.querySelectorAll('[class^=swal2-success-circular-line], .swal2-success-fix');
 
     for (let i = 0; i < successIconParts.length; i++) {
@@ -65374,6 +65637,10 @@ module.exports = function (css) {
 
   const successIconHtml = "\n  <div class=\"swal2-success-circular-line-left\"></div>\n  <span class=\"swal2-success-line-tip\"></span> <span class=\"swal2-success-line-long\"></span>\n  <div class=\"swal2-success-ring\"></div> <div class=\"swal2-success-fix\"></div>\n  <div class=\"swal2-success-circular-line-right\"></div>\n";
   const errorIconHtml = "\n  <span class=\"swal2-x-mark\">\n    <span class=\"swal2-x-mark-line-left\"></span>\n    <span class=\"swal2-x-mark-line-right\"></span>\n  </span>\n";
+  /**
+   * @param {HTMLElement} icon
+   * @param {SweetAlertOptions} params
+   */
 
   const setContent = (icon, params) => {
     icon.textContent = '';
@@ -65393,6 +65660,11 @@ module.exports = function (css) {
       setInnerHtml(icon, iconContent(defaultIconHtml[params.icon]));
     }
   };
+  /**
+   * @param {HTMLElement} icon
+   * @param {SweetAlertOptions} params
+   */
+
 
   const setColor = (icon, params) => {
     if (!params.iconColor) {
@@ -65408,8 +65680,17 @@ module.exports = function (css) {
 
     setStyle(icon, '.swal2-success-ring', 'borderColor', params.iconColor);
   };
+  /**
+   * @param {string} content
+   */
+
 
   const iconContent = content => "<div class=\"".concat(swalClasses['icon-content'], "\">").concat(content, "</div>");
+
+  /**
+   * @param {SweetAlert2} instance
+   * @param {SweetAlertOptions} params
+   */
 
   const renderImage = (instance, params) => {
     const image = getImage();
@@ -65430,23 +65711,10 @@ module.exports = function (css) {
     applyCustomClass(image, params, 'image');
   };
 
-  const createStepElement = step => {
-    const stepEl = document.createElement('li');
-    addClass(stepEl, swalClasses['progress-step']);
-    setInnerHtml(stepEl, step);
-    return stepEl;
-  };
-
-  const createLineElement = params => {
-    const lineEl = document.createElement('li');
-    addClass(lineEl, swalClasses['progress-step-line']);
-
-    if (params.progressStepsDistance) {
-      lineEl.style.width = params.progressStepsDistance;
-    }
-
-    return lineEl;
-  };
+  /**
+   * @param {SweetAlert2} instance
+   * @param {SweetAlertOptions} params
+   */
 
   const renderProgressSteps = (instance, params) => {
     const progressStepsContainer = getProgressSteps();
@@ -65476,6 +65744,38 @@ module.exports = function (css) {
       }
     });
   };
+  /**
+   * @param {string} step
+   * @returns {HTMLLIElement}
+   */
+
+  const createStepElement = step => {
+    const stepEl = document.createElement('li');
+    addClass(stepEl, swalClasses['progress-step']);
+    setInnerHtml(stepEl, step);
+    return stepEl;
+  };
+  /**
+   * @param {SweetAlertOptions} params
+   * @returns {HTMLLIElement}
+   */
+
+
+  const createLineElement = params => {
+    const lineEl = document.createElement('li');
+    addClass(lineEl, swalClasses['progress-step-line']);
+
+    if (params.progressStepsDistance) {
+      applyNumericalStyle(lineEl, 'width', params.progressStepsDistance);
+    }
+
+    return lineEl;
+  };
+
+  /**
+   * @param {SweetAlert2} instance
+   * @param {SweetAlertOptions} params
+   */
 
   const renderTitle = (instance, params) => {
     const title = getTitle();
@@ -65492,6 +65792,11 @@ module.exports = function (css) {
 
     applyCustomClass(title, params, 'title');
   };
+
+  /**
+   * @param {SweetAlert2} instance
+   * @param {SweetAlertOptions} params
+   */
 
   const renderPopup = (instance, params) => {
     const container = getContainer();
@@ -65522,6 +65827,10 @@ module.exports = function (css) {
 
     addClasses(popup, params);
   };
+  /**
+   * @param {HTMLElement} popup
+   * @param {SweetAlertOptions} params
+   */
 
   const addClasses = (popup, params) => {
     // Default Class + showClass when updating Swal.update({})
@@ -65546,6 +65855,11 @@ module.exports = function (css) {
       addClass(popup, swalClasses["icon-".concat(params.icon)]);
     }
   };
+
+  /**
+   * @param {SweetAlert2} instance
+   * @param {SweetAlertOptions} params
+   */
 
   const render = (instance, params) => {
     renderPopup(instance, params);
@@ -66165,8 +66479,8 @@ module.exports = function (css) {
     }
 
     show(loader);
-    popup.setAttribute('data-loading', true);
-    popup.setAttribute('aria-busy', true);
+    popup.setAttribute('data-loading', 'true');
+    popup.setAttribute('aria-busy', 'true');
     popup.focus();
   };
 
@@ -66456,6 +66770,10 @@ module.exports = function (css) {
 
   const clickCancel = () => getCancelButton() && getCancelButton().click();
 
+  /**
+   * @param {GlobalState} globalState
+   */
+
   const removeKeydownHandler = globalState => {
     if (globalState.keydownTarget && globalState.keydownHandlerAdded) {
       globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, {
@@ -66464,6 +66782,13 @@ module.exports = function (css) {
       globalState.keydownHandlerAdded = false;
     }
   };
+  /**
+   * @param {SweetAlert2} instance
+   * @param {GlobalState} globalState
+   * @param {SweetAlertOptions} innerParams
+   * @param {*} dismissWith
+   */
+
   const addKeydownHandler = (instance, globalState, innerParams, dismissWith) => {
     removeKeydownHandler(globalState);
 
@@ -66477,7 +66802,12 @@ module.exports = function (css) {
       });
       globalState.keydownHandlerAdded = true;
     }
-  }; // Focus handling
+  };
+  /**
+   * @param {SweetAlertOptions} innerParams
+   * @param {number} index
+   * @param {number} increment
+   */
 
   const setFocus = (innerParams, index, increment) => {
     const focusableElements = getFocusableElements(); // search for visible elements and select the next possible match
@@ -66499,6 +66829,11 @@ module.exports = function (css) {
   };
   const arrowKeysNextButton = ['ArrowRight', 'ArrowDown'];
   const arrowKeysPreviousButton = ['ArrowLeft', 'ArrowUp'];
+  /**
+   * @param {SweetAlert2} instance
+   * @param {KeyboardEvent} e
+   * @param {function} dismissWith
+   */
 
   const keydownHandler = (instance, e, dismissWith) => {
     const innerParams = privateProps.innerParams.get(instance);
@@ -66533,6 +66868,12 @@ module.exports = function (css) {
       handleEsc(e, innerParams, dismissWith);
     }
   };
+  /**
+   * @param {SweetAlert2} instance
+   * @param {KeyboardEvent} e
+   * @param {SweetAlertOptions} innerParams
+   */
+
 
   const handleEnter = (instance, e, innerParams) => {
     // https://github.com/sweetalert2/sweetalert2/issues/2386
@@ -66540,7 +66881,7 @@ module.exports = function (css) {
       return;
     }
 
-    if (e.target && instance.getInput() && e.target.outerHTML === instance.getInput().outerHTML) {
+    if (e.target && instance.getInput() && e.target instanceof HTMLElement && e.target.outerHTML === instance.getInput().outerHTML) {
       if (['textarea', 'file'].includes(innerParams.input)) {
         return; // do not submit
       }
@@ -66549,6 +66890,11 @@ module.exports = function (css) {
       e.preventDefault();
     }
   };
+  /**
+   * @param {KeyboardEvent} e
+   * @param {SweetAlertOptions} innerParams
+   */
+
 
   const handleTab = (e, innerParams) => {
     const targetElement = e.target;
@@ -66573,13 +66919,17 @@ module.exports = function (css) {
     e.stopPropagation();
     e.preventDefault();
   };
+  /**
+   * @param {string} key
+   */
+
 
   const handleArrows = key => {
     const confirmButton = getConfirmButton();
     const denyButton = getDenyButton();
     const cancelButton = getCancelButton();
 
-    if (![confirmButton, denyButton, cancelButton].includes(document.activeElement)) {
+    if (document.activeElement instanceof HTMLElement && ![confirmButton, denyButton, cancelButton].includes(document.activeElement)) {
       return;
     }
 
@@ -66593,7 +66943,7 @@ module.exports = function (css) {
         return;
       }
 
-      if (isVisible(buttonToFocus) && buttonToFocus instanceof HTMLButtonElement) {
+      if (buttonToFocus instanceof HTMLButtonElement && isVisible(buttonToFocus)) {
         break;
       }
     }
@@ -66602,6 +66952,12 @@ module.exports = function (css) {
       buttonToFocus.focus();
     }
   };
+  /**
+   * @param {KeyboardEvent} e
+   * @param {SweetAlertOptions} innerParams
+   * @param {function} dismissWith
+   */
+
 
   const handleEsc = (e, innerParams, dismissWith) => {
     if (callIfFunction(innerParams.allowEscapeKey)) {
@@ -66891,12 +67247,6 @@ module.exports = function (css) {
     if (domCache.popup && globalState.swalCloseEventFinishedCallback) {
       globalState.swalCloseEventFinishedCallback();
       delete globalState.swalCloseEventFinishedCallback;
-    } // Check if there is a swal disposal defer timer
-
-
-    if (globalState.deferDisposalTimer) {
-      clearTimeout(globalState.deferDisposalTimer);
-      delete globalState.deferDisposalTimer;
     }
 
     if (typeof innerParams.didDestroy === 'function') {
@@ -66905,9 +67255,13 @@ module.exports = function (css) {
 
     disposeSwal(this);
   }
+  /**
+   * @param {SweetAlert2} instance
+   */
 
   const disposeSwal = instance => {
     disposeWeakMaps(instance); // Unset this.params so GC will dispose it (#1569)
+    // @ts-ignore
 
     delete instance.params; // Unset globalState props so GC will dispose globalState (#1569)
 
@@ -66916,9 +67270,14 @@ module.exports = function (css) {
 
     delete globalState.currentInstance;
   };
+  /**
+   * @param {SweetAlert2} instance
+   */
+
 
   const disposeWeakMaps = instance => {
     // If the current instance is awaiting a promise result, we keep the privateMethods to call them once the promise result is retrieved #2335
+    // @ts-ignore
     if (instance.isAwaitingPromise()) {
       unsetWeakMaps(privateProps, instance);
       privateProps.awaitingPromise.set(instance, true);
@@ -66927,6 +67286,11 @@ module.exports = function (css) {
       unsetWeakMaps(privateProps, instance);
     }
   };
+  /**
+   * @param {object} obj
+   * @param {SweetAlert2} instance
+   */
+
 
   const unsetWeakMaps = (obj, instance) => {
     for (const i in obj) {
@@ -67390,7 +67754,7 @@ module.exports = function (css) {
         }
       }); // @ts-ignore
 
-      const promise = this._main(this.params);
+      const promise = currentInstance._main(currentInstance.params);
 
       privateProps.promise.set(this, promise);
     }
@@ -67400,6 +67764,7 @@ module.exports = function (css) {
       showWarningsForParams(Object.assign({}, mixinParams, userParams));
 
       if (globalState.currentInstance) {
+        // @ts-ignore
         globalState.currentInstance._destroy();
 
         if (isModal()) {
@@ -67407,7 +67772,7 @@ module.exports = function (css) {
         }
       }
 
-      globalState.currentInstance = this;
+      globalState.currentInstance = currentInstance;
       const innerParams = prepareParams(userParams, mixinParams);
       setParameters(innerParams);
       Object.freeze(innerParams); // clear the previous timer
@@ -67419,10 +67784,10 @@ module.exports = function (css) {
 
 
       clearTimeout(globalState.restoreFocusTimeout);
-      const domCache = populateDomCache(this);
-      render(this, innerParams);
-      privateProps.innerParams.set(this, innerParams);
-      return swalPromise(this, domCache, innerParams);
+      const domCache = populateDomCache(currentInstance);
+      render(currentInstance, innerParams);
+      privateProps.innerParams.set(currentInstance, innerParams);
+      return swalPromise(currentInstance, domCache, innerParams);
     } // `catch` cannot be the name of a module export, so we define our thenable methods here instead
 
 
@@ -67480,6 +67845,11 @@ module.exports = function (css) {
     params.hideClass = Object.assign({}, defaultParams.hideClass, params.hideClass);
     return params;
   };
+  /**
+   * @param {SweetAlert2} instance
+   * @returns {DomCache}
+   */
+
 
   const populateDomCache = instance => {
     const domCache = {
@@ -67497,6 +67867,12 @@ module.exports = function (css) {
     privateProps.domCache.set(instance, domCache);
     return domCache;
   };
+  /**
+   * @param {GlobalState} globalState
+   * @param {SweetAlertOptions} innerParams
+   * @param {function} dismissWith
+   */
+
 
   const setupTimer = (globalState$$1, innerParams, dismissWith) => {
     const timerProgressBar = getTimerProgressBar();
@@ -67520,6 +67896,11 @@ module.exports = function (css) {
       }
     }
   };
+  /**
+   * @param {DomCache} domCache
+   * @param {SweetAlertOptions} innerParams
+   */
+
 
   const initFocus = (domCache, innerParams) => {
     if (innerParams.toast) {
@@ -67534,6 +67915,12 @@ module.exports = function (css) {
       setFocus(innerParams, -1, 1);
     }
   };
+  /**
+   * @param {DomCache} domCache
+   * @param {SweetAlertOptions} innerParams
+   * @returns {boolean}
+   */
+
 
   const focusButton = (domCache, innerParams) => {
     if (innerParams.focusDeny && isVisible(domCache.denyButton)) {
@@ -67573,7 +67960,7 @@ module.exports = function (css) {
     };
   });
   SweetAlert.DismissReason = DismissReason;
-  SweetAlert.version = '11.4.13';
+  SweetAlert.version = '11.4.16';
 
   const Swal = SweetAlert; // @ts-ignore
 
@@ -86908,8 +87295,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\PC\Desktop\interventions_aal\resources\assets\js\app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\PC\Desktop\interventions_aal\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\GESTION_RESSOURCE_HUMAIN\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\GESTION_RESSOURCE_HUMAIN\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ })
