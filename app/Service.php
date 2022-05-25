@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
+use Laravel\Passport\HasApiTokens;
 
 class Service extends Model
 {
@@ -10,5 +12,8 @@ class Service extends Model
 
     public function division() {
         return $this->belongsTo('App\Division');
+    }
+    public function user() {
+        return $this->hasMany('App\User');
     }
 }

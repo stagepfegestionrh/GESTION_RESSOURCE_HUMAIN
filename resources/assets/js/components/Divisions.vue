@@ -7,6 +7,7 @@
                         <h3 class="card-title">Liste des divisions</h3>
                         <div class="card-tools">
                             <button class="btn btn-success" @click="newModal">Ajouter <i class="fas fa-user-plus fa-fw"></i></button>
+                            
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -38,9 +39,17 @@
                                             <i class="fas fa-eye green"></i>
                                         </a>
                                         /
-                                        <a href="" @click="">
-                                            <i class="fa fa-external-link purple"></i>
-                                        </a>
+                                        <router-link
+                                        to="/Service"
+                                        v-slot="{href, route, navigate}"
+                                        >
+                                            <a :href="href" @click="navigate" >
+                                            <i class="fa fa-external-link"></i>
+                                            {{ route.name }}
+                                            </a>
+                                        </router-link>
+                                        
+                                        
                                     </td>
                                  </tr>
                             </tbody>

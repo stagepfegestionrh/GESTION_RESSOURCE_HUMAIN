@@ -24,5 +24,7 @@ Route::get('division','API\DivisionController@index');
 Route::post('division','API\DivisionController@store');
 Route::get('UserDivisions','API\DivisionController@UserDivisions');
 Route::put('division/{id}', 'API\DivisionController@update');
-Route::redirect('/Division','/Service');
+Route::get('service','API\ServController@index');
+Route::post('service','API\ServController@store');
+Route::get('UserServices','API\ServController@UserServices');
 

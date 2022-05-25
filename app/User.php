@@ -32,4 +32,7 @@ class User extends Authenticatable
     public function division() {
         return $this->belongsTo('App\Division');
     }
+    public function service() {
+        return $this->belongsTo('App\Service');
+    }
 }
