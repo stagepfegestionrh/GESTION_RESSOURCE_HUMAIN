@@ -67,8 +67,8 @@
                         </div>
                 
                     <div class="form-group">
-                        <input v-model="form.service" type="text" name="Services"   placeholder="Services" style="width: 470px;"
-                        class="form-control" :class="{ 'is-invalid': form.errors.has('Service') }">
+                        <input v-model="form.service" type="text" name="service"   placeholder="service" style="width: 470px;"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('service') }">
                         <has-error :form="form" field="Service"></has-error>
                     </div>
 
@@ -90,6 +90,7 @@
 <script>
 import Form from 'vform';
 import swal from 'sweetalert2';
+
 
 export default {
         data() {
@@ -124,7 +125,7 @@ export default {
                 this.form.reset();
                 $('#addNew').modal('show');
             },
-            deleteService(id){
+            deleteService(service){
                 swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -138,7 +139,7 @@ export default {
 
                         // Send request to the server
                         if (result.value) {
-                                this.form.delete('api/service/'+id).then(()=>{
+                                this.form.delete('api/service/'+service).then(()=>{
                                         swal.fire(
                                             'Deleted!',
                                             'Your file has been deleted.',
@@ -153,7 +154,7 @@ export default {
             },
             create_Service(){
                 this.$Progress.start();
-               
+          
                 this.form.post('api/service')
                 .then(()=>{
                     swal.fire(
@@ -168,6 +169,7 @@ export default {
                         title: 'service Created in successfully'
                         })
                 this.$Progress.finish();
+
                 })
                 .catch(()=>{
                     
@@ -198,7 +200,7 @@ export default {
                 this.loadServices();
                 this.UserServices();
                 Fire.$on('AfterCreate',() => {
-                 this.loadServices();
+                this.loadServices();
                 this.UserServices();
 
            });

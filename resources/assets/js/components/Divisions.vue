@@ -210,7 +210,7 @@ export default {
                 this.loadDivisions();
                 this.UserDivisions();
                 Fire.$on('AfterCreate',() => {
-                 this.loadDivisions();
+                this.loadDivisions();
                 this.UserDivisions();
 
            });

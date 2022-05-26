@@ -20,9 +20,8 @@ class ServController extends Controller
     {
         $services = Service::latest()->paginate(20);
         foreach($services as $service){
-            $Chef_service =   User::findOrFail($service->Chef_Service); 
-            $service->Chef_Service = $chef_service ? $chef_Service->nom." ".$chef_Service->prenom : '';
-
+            $Chef_service = User::findOrFail($service->Chef_Service); 
+            $service->Chef_Service = $Chef_service ? $Chef_service->nom." ".$Chef_service->prenom : '';
         }
         return $services;
 
@@ -48,10 +47,9 @@ class ServController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'Service' => 'required|string|max:191',
-            'Chef_service' => 'required',
+            'service' => 'required|string|max:191',
+            'Chef_Service' => 'required',
         ]);
-
 
         $newService = new Service();
         $newService->Service = $request['service'];
@@ -95,13 +93,13 @@ class ServController extends Controller
     {
         $service = Service::findOrFail($id);
         $this->validate($request,[
-            'Service' => 'required|string|max:191',
+            'service' => 'required|string|max:191',
             'Chef_Service' => 'required',
         ]);
-        $newService->Service = $request['Service'];
-        $newService->Chef_Service = $request['Chef_Service'];
+        $Service->Service = $request['service'];
+        $Service->Chef_Service = $request['Chef_Service'];
 
-        $newService->save();
+        $Service->save();
 
 
         return ['message' => 'Updated the division info'];
@@ -113,9 +111,9 @@ class ServController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($Service)
     {
-        $service = Service::findOrFail($id);
+        $service = Service::findOrFail($service);
 
         $service->delete();
 
@@ -132,7 +130,7 @@ class ServController extends Controller
         }
  
          return ['data' => $result];
-     }
+    }
 }
     
      

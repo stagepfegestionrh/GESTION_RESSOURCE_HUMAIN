@@ -27,4 +27,3 @@ Route::put('division/{id}', 'API\DivisionController@update');
 Route::get('service','API\ServController@index');
 Route::post('service','API\ServController@store');
 Route::get('UserServices','API\ServController@UserServices');
-
