@@ -40,7 +40,7 @@
                                         </a>
                                         /
                                         <router-link
-                                        to="/Service"
+                                        :to="getUrl(div.id)"
                                         v-slot="{href, route, navigate}">
                                             <a :href="href" @click="navigate" >
                                             <i class="fa fa-external-link"></i>
@@ -204,6 +204,9 @@ export default {
                     this.$Progress.fail();
                });
             },
+            getUrl(id){
+                return "/Service/"+id;
+            }
         },
 
             created() {

@@ -3015,6 +3015,9 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function () {
         _this5.$Progress.fail();
       });
+    },
+    getUrl: function getUrl(id) {
+      return "/Service/" + id;
     }
   },
   created: function created() {
@@ -3386,6 +3389,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var process__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! process */ "./node_modules/process/browser.js");
+/* harmony import */ var process__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(process__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -3475,6 +3482,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3483,9 +3496,11 @@ __webpack_require__.r(__webpack_exports__);
       editmode: false,
       users: {},
       services: {},
+      division: this.$route.params.id,
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["default"]({
-        division: '',
+        id: '',
         service: '',
+        division: this.$route.params.id,
         Chef_Service: ''
       })
     };
@@ -3494,7 +3509,7 @@ __webpack_require__.r(__webpack_exports__);
     loadServices: function loadServices() {
       var _this = this;
 
-      axios.get("api/service").then(function (_ref) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/getServices/" + this.$route.params.id).then(function (_ref) {
         var data = _ref.data;
         return _this.services = data.data;
       });
@@ -3502,7 +3517,7 @@ __webpack_require__.r(__webpack_exports__);
     UserServices: function UserServices() {
       var _this2 = this;
 
-      axios.get("api/UserServices").then(function (_ref2) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/UserServices/" + this.form.id).then(function (_ref2) {
         var data = _ref2.data;
         return _this2.users = data.data;
       });
@@ -3518,7 +3533,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.reset();
       $('#addNew').modal('show');
     },
-    deleteService: function deleteService(service) {
+    deleteService: function deleteService(id) {
       var _this3 = this;
 
       sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
@@ -3532,7 +3547,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this3.form["delete"]('api/service/' + service).then(function () {
+          _this3.form["delete"]('api/service/' + id).then(function () {
             sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Deleted!', 'Your file has been deleted.', 'success');
             Fire.$emit('AfterCreate');
           })["catch"](function () {
@@ -3557,6 +3572,11 @@ __webpack_require__.r(__webpack_exports__);
         _this4.$Progress.finish();
       })["catch"](function () {});
     },
+    // showDiv(division){
+    //     var division = this.$route.params.division;
+    //     this.form.post('api/service/'+this.division)
+    //     return division ;
+    // },  
     updateService: function updateService() {
       var _this5 = this;
 
@@ -3573,17 +3593,28 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function () {
         _this5.$Progress.fail();
       });
+    },
+    getDivision: function getDivision() {
+      var _this6 = this;
+
+      var id = this.$route.params.id;
+      this.form.division = id;
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('api/division/' + id).then(function (_ref3) {
+        var data = _ref3.data;
+        return _this6.division = data;
+      });
     }
   },
   created: function created() {
-    var _this6 = this;
+    var _this7 = this;
 
+    this.getDivision();
     this.loadServices();
     this.UserServices();
     Fire.$on('AfterCreate', function () {
-      _this6.loadServices();
+      _this7.loadServices();
 
-      _this6.UserServices();
+      _this7.UserServices();
     }); //    setInterval(() => this.loadServices(), 3000);
   }
 });
@@ -3782,6 +3813,7 @@ __webpack_require__.r(__webpack_exports__);
         prenom: '',
         CNE: '',
         Matricule: '',
+        division: '',
         Telephone: '',
         Sex: '',
         Date_naissance: '',
@@ -69722,7 +69754,7 @@ var render = function () {
                             "\n                                    /\n                                    "
                           ),
                           _c("router-link", {
-                            attrs: { to: "/Service" },
+                            attrs: { to: _vm.getUrl(div.id) },
                             scopedSlots: _vm._u(
                               [
                                 {
@@ -70982,8 +71014,26 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("div"),
+    _vm._v(" "),
     _c("div", { staticClass: "row mt-5" }, [
       _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v("Division: "),
+              _c("span", {}, [_vm._v(_vm._s(this.division.Division))]),
+            ]),
+            _vm._v(" "),
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v("Chef de division: "),
+              _c("span", {}, [
+                _vm._v(_vm._s(this.division.Chef_division) + " "),
+              ]),
+            ]),
+          ]),
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
             _c("h3", { staticClass: "card-title" }, [
@@ -71011,8 +71061,6 @@ var render = function () {
                   _vm._v(" "),
                   _vm._l(_vm.services, function (service) {
                     return _c("tr", { key: service.id }, [
-                      _c("td", [_vm._v(_vm._s(service.division))]),
-                      _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(service.service))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(service.Chef_Service))]),
@@ -71048,21 +71096,6 @@ var render = function () {
                             },
                           },
                           [_c("i", { staticClass: "fa fa-trash red" })]
-                        ),
-                        _vm._v(
-                          "\n                                    /\n                                     "
-                        ),
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function ($event) {
-                                return _vm.showService(service.id)
-                              },
-                            },
-                          },
-                          [_c("i", { staticClass: "fas fa-eye green" })]
                         ),
                       ]),
                     ])
@@ -71295,8 +71328,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("th", [_vm._v("Division")]),
-      _vm._v(" "),
       _c("th", [_vm._v("Service")]),
       _vm._v(" "),
       _c("th", [_vm._v("Chef de service")]),
@@ -93568,7 +93599,7 @@ var routes = [{
   path: '/Division',
   components: __webpack_require__(/*! ./components/Divisions.vue */ "./resources/assets/js/components/Divisions.vue")
 }, {
-  path: '/Service',
+  path: '/Service/:id?',
   components: __webpack_require__(/*! ./components/Service.vue */ "./resources/assets/js/components/Service.vue")
 }, {
   path: '/Demande_conge',

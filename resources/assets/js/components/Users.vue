@@ -181,6 +181,7 @@ import swal from 'sweetalert2';
                     prenom : '',
                     CNE : '',
                     Matricule : '',
+                    division : '',
                     Telephone : '',
                     Sex : '',
                     Date_naissance : '',

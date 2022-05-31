@@ -22,7 +22,7 @@ class DivisionController extends Controller
 
         foreach($divisions as $div){
             
-            $chef_division =   User::findOrFail($div->Chef_division); 
+            $chef_division =  User::findOrFail($div->Chef_division); 
             $div->Chef_division = $chef_division ? $chef_division->nom." ".$chef_division->prenom : '';
 
         }
@@ -76,7 +76,10 @@ class DivisionController extends Controller
      */
     public function show($id)
     {
-        //
+         $division = Division::findOrFail($id);
+         $chef_division =   User::findOrFail($division->Chef_division); 
+         $division->Chef_division = $chef_division ? $chef_division->nom." ".$chef_division->prenom : '';
+        return $division;
     }
 
     /**

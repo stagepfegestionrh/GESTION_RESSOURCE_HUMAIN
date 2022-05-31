@@ -1,7 +1,17 @@
 <template>
     <div class="container">
+        <div>
+
+        </div>
         <div class="row mt-5">
             <div class="col-md-12">
+                <div class="card">
+                     <div class="card-header">
+                         <h3 class="card-title">Division: <span class="" style="">{{this.division.Division}}</span></h3>
+                         <h3 class="card-title">Chef de division: <span class="" style="">{{this.division.Chef_division}} </span></h3>
+
+                     </div>
+                </div>
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Liste des Services</h3>
@@ -14,14 +24,12 @@
                         <table class="table table-hover">
                             <tbody>
                                 <tr>
-                                    <th>Division</th>
                                     <th>Service</th>
                                     <th>Chef de service</th>
                                     <th>Enregistré à</th>
                                     <th>Modifier</th>
                                 </tr>
                                 <tr v-for="service in services" :key="service.id">
-                                    <td>{{service.division}}</td>
                                     <td>{{service.service}}</td>
                                     <td>{{service.Chef_Service}}</td>
                                     <td>{{service.created_at | myDate}}</td>
@@ -32,10 +40,6 @@
                                         /
                                         <a href="#" @click="deleteService(service.id)">
                                             <i class="fa fa-trash red"></i>
-                                        </a>
-                                        /
-                                         <a href="#" @click="showService(service.id)">
-                                            <i class="fas fa-eye green"></i>
                                         </a>
                                     </td>
                                  </tr>
@@ -90,6 +94,8 @@
 <script>
 import Form from 'vform';
 import swal from 'sweetalert2';
+import axios from 'axios';
+import { exit } from 'process';
 
 
 export default {
@@ -98,9 +104,11 @@ export default {
                 editmode: false,
                 users : {},
                 services : {},
+                division : this.$route.params.id,
                 form: new Form({
-                    division:'',
+                    id: '',
                     service : '',
+                    division: this.$route.params.id ,
                     Chef_Service: '',
                 })
 
@@ -109,10 +117,10 @@ export default {
         },
         methods: {
             loadServices(){
-                axios.get("api/service").then(({ data }) => (this.services = data.data))
+                axios.get("api/getServices/"+this.$route.params.id).then(({ data }) => (this.services = data.data))
             },
              UserServices(){
-                axios.get("api/UserServices").then(({ data }) => (this.users=data.data))
+                axios.get("api/UserServices/"+this.form.id).then(({ data }) => (this.users=data.data))
             },
             editModal(service){
                 this.editmode = true;
@@ -125,8 +133,8 @@ export default {
                 this.form.reset();
                 $('#addNew').modal('show');
             },
-            deleteService(service){
-                swal.fire({
+            deleteService(id){
+                swal.fire({     
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
                     type: 'warning',
@@ -139,7 +147,7 @@ export default {
 
                         // Send request to the server
                         if (result.value) {
-                                this.form.delete('api/service/'+service).then(()=>{
+                                this.form.delete('api/service/'+id).then(()=>{
                                         swal.fire(
                                             'Deleted!',
                                             'Your file has been deleted.',
@@ -154,7 +162,6 @@ export default {
             },
             create_Service(){
                 this.$Progress.start();
-          
                 this.form.post('api/service')
                 .then(()=>{
                     swal.fire(
@@ -175,6 +182,11 @@ export default {
                     
                 });
             },
+            // showDiv(division){
+            //     var division = this.$route.params.division;
+            //     this.form.post('api/service/'+this.division)
+            //     return division ;
+            // },  
             updateService(){
                 this.$Progress.start();
               //console.log('Editing data');
@@ -194,9 +206,15 @@ export default {
                     this.$Progress.fail();
                });
             },
+            getDivision(){
+                var id = this.$route.params.id;
+                this.form.division = id;
+                axios.get('api/division/'+id).then(({ data }) => (this.division = data))
+            },
         },
 
             created() {
+                this.getDivision();    
                 this.loadServices();
                 this.UserServices();
                 Fire.$on('AfterCreate',() => {

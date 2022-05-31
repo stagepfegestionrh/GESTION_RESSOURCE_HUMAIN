@@ -11,22 +11,35 @@ use Illuminate\Support\Facades\Hash;
 
 class ServController extends Controller
 {
-    /**
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $id)
     {
-        $services = Service::latest()->paginate(20);
+    }
+
+
+
+    public function getServices($id)
+    {
+        $services = Service::latest()->where('division', $id     )->paginate(20);
         foreach($services as $service){
             $Chef_service = User::findOrFail($service->Chef_Service); 
             $service->Chef_Service = $Chef_service ? $Chef_service->nom." ".$Chef_service->prenom : '';
         }
         return $services;
-
-
     }
+    // public function divIndex(request $id){
+    //     $div = Division::findOrFail($id);
+    //     $divisions = Service::latest()->where('division',$div -> id)->get()->paginate(20);
+    //     foreach($divisions as $div){
+    //         $division = User::findOrFail($div->Division); 
+    //         $div->Division = $division ? $division->division : '';
+    //     }
+    //    return $divisions;
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -48,11 +61,12 @@ class ServController extends Controller
     {
         $this->validate($request,[
             'service' => 'required|string|max:191',
+            'division' => 'required',
             'Chef_Service' => 'required',
         ]);
-
         $newService = new Service();
         $newService->Service = $request['service'];
+        $newService->Division = $request['division'];
         $newService->Chef_Service = $request['Chef_Service'];
 
         $newService->save();
@@ -68,7 +82,9 @@ class ServController extends Controller
      */
     public function show($id)
     {
-        //
+        // $div = Division::findOrFail($id);
+        // $serv = Service::findOrFail($div -> division);
+        // return ;
     }
 
     /**
@@ -96,10 +112,11 @@ class ServController extends Controller
             'service' => 'required|string|max:191',
             'Chef_Service' => 'required',
         ]);
-        $Service->Service = $request['service'];
-        $Service->Chef_Service = $request['Chef_Service'];
 
-        $Service->save();
+        $service->Service = $request['service'];
+        $service->Chef_Service = $request['Chef_Service'];
+
+        $service->save();
 
 
         return ['message' => 'Updated the division info'];
@@ -111,9 +128,9 @@ class ServController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($Service)
+    public function destroy($id)
     {
-        $service = Service::findOrFail($service);
+        $service = Service::findOrFail($id);
 
         $service->delete();
 
@@ -128,9 +145,9 @@ class ServController extends Controller
             
              $result[] =  $user;
         }
- 
-         return ['data' => $result];
+        return ['data' => $result];
     }
+
 }
     
      
