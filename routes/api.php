@@ -20,3 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResources(['user' => 'API\UserController']);
 Route::get('profile', 'API\UserController@profile');
 Route::put('profile', 'API\UserController@updateProfile');
+Route::get('division','API\DivisionController@index');
+Route::post('division','API\DivisionController@store');
+Route::get('UserDivisions','API\DivisionController@UserDivisions');
+Route::put('division/{id}', 'API\DivisionController@update');
+Route::get('service','API\ServController@index');
+Route::post('service','API\ServController@store');
+Route::get('UserServices','API\ServController@UserServices');

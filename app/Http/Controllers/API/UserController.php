@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
@@ -39,23 +41,49 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
 
         $this->validate($request,[
-            'name' => 'required|string|max:191',
+            'nom' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
             'password' => 'required|string|min:6'
         ]);
 
-        return User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'type' => $request['type'],
-            'bio' => $request['bio'],
-            'photo' => $request['photo'],
-            'password' => Hash::make($request['password']),
-        ]);
+        $newUser = new User();
+        $newUser->nom = $request['nom'];
+        $newUser->prenom = $request['prenom'];
+        $newUser->CNE = $request['CNE'];
+        $newUser->Matricule = $request['Matricule'];
+        $newUser->Sex = $request['Sex'];
+        $newUser->Date_naissance = $request['Date_naissance'];
+        $newUser->Adresse = $request['Adresse'];
+        $newUser->Telephone = $request['Telephone'];
+        $newUser->Date_recrutement = $request['Date_recrutement'];
+        $newUser->Intitule = $request['Intitule'];
+        $newUser->email = $request['email'];
+        $newUser->type = $request['type'];
+        $newUser->bio = $request['bio'];
+        $newUser->photo = $request['photo'];
+        $newUser->password = Hash::make($request['password']);
 
+        $newUser->save();
+        // return User::create([
+        //     'nom' => $request['nom'],
+        //     'prenom' => $request['prenom'],
+        //     'CNE' => $request['CNE'],
+        //     'Matricule' => $request['Matricule'],
+        //     'Sex' => $request['Sex'],
+        //     'Date_naissance' => Carbon::parse($request['Date_naissance'])->setTimezone('GMT')->toDateString(),
+        //     'Adresse' => $request['Adresse'],
+        //     'Telephone' => $request['Telephone'],
+        //     'Date_recrutement' => $request['Date_recrutement'],
+        //     'Intitule' => $request['Intitule'],
+        //     'email' => $request['email'],
+        //     'type' => $request['type'],
+        //     'bio' => $request['bio'],
+        //     'photo' => $request['photo'],
+        //     'password' => Hash::make($request['password']),
+        // ]);
         return ['message' => "created"];
 
     }
@@ -63,24 +91,41 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
+        
         $user = auth('api')->user();
 
-
         $this->validate($request,[
-            'name' => 'required|string|max:191',
+            'nom' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
             'password' => 'sometimes|required|min:6'
         ]);
+        
+        $user->nom = $request['nom'];
+        $user->prenom = $request['prenom'];
+        $user->CNE = $request['CNE'];
+        $user->Matricule = $request['Matricule'];
+        $user->Sex = $request['Sex'];
+        $user->Date_naissance = $request['Date_naissance'];
+        $user->Adresse = $request['Adresse'];
+        $user->Telephone = $request['Telephone'];
+        $user->Date_recrutement = $request['Date_recrutement'];
+        $user->Intitule = $request['Intitule'];
+        $user->email = $request['email'];
+        $user->type = $request['type'];
+        $user->bio = $request['bio'];
+        $user->photo = $request['photo'];
+        $user->password = Hash::make($request['password']);
 
+        $user->save();
 
         $currentPhoto = $user->photo;
 
 
         if($request->photo != $currentPhoto){
-            $name = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
+            $nom = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
 
-            \Image::make($request->photo)->save(public_path('img/profile/').$name);
-            $request->merge(['photo' => $name]);
+            \Image::make($request->photo)->save(public_path('img/profile/').$nom);
+            $request->merge(['photo' => $nom]);
 
             $userPhoto = public_path('img/profile/').$currentPhoto;
             if(file_exists($userPhoto)){
@@ -95,14 +140,15 @@ class UserController extends Controller
         }
 
 
-        $user->update($request->all());
+       // $user->update($request->all());
         return ['message' => "Success"];
     }
 
 
     public function profile()
     {
-        return auth('api')->user();
+        $user = User::findOrFail(Auth::id());
+        return $user;
     }
 
     /**
@@ -129,7 +175,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $this->validate($request,[
-            'name' => 'required|string|max:191',
+            'nom' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
             'password' => 'sometimes|min:6'
         ]);
