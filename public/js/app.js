@@ -3293,6 +3293,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3301,6 +3309,7 @@ __webpack_require__.r(__webpack_exports__);
         nom: '',
         prenom: '',
         CNE: '',
+        Division: '',
         Matricule: '',
         Telephone: '',
         Sex: '',
@@ -3801,19 +3810,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       editmode: false,
       users: {},
+      divisions: {},
       form: new Form({
         id: '',
         nom: '',
         prenom: '',
         CNE: '',
+        Division: '',
         Matricule: '',
-        division: '',
         Telephone: '',
         Sex: '',
         Date_naissance: '',
@@ -3832,7 +3849,7 @@ __webpack_require__.r(__webpack_exports__);
     updateUser: function updateUser() {
       var _this = this;
 
-      this.$Progress.start(); // console.log('Editing data');
+      this.$Progress.start(); //console.log('Editing data');
 
       this.form.put('api/user/' + this.form.id).then(function () {
         // success
@@ -3885,11 +3902,19 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this3.users = data.data;
+        return _this3.users = data;
+      });
+    },
+    loadDivs: function loadDivs() {
+      var _this4 = this;
+
+      axios.get("api/loadDivs").then(function (_ref2) {
+        var data = _ref2.data;
+        return _this4.divisions = data.data;
       });
     },
     createUser: function createUser() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$Progress.start();
       this.form.post('api/user').then(function () {
@@ -3901,16 +3926,19 @@ __webpack_require__.r(__webpack_exports__);
           title: 'User Created in successfully'
         });
 
-        _this4.$Progress.finish();
+        _this5.$Progress.finish();
       })["catch"](function () {});
     }
   },
   created: function created() {
-    var _this5 = this;
+    var _this6 = this;
 
+    this.loadDivs();
     this.loadUsers();
     Fire.$on('AfterCreate', function () {
-      _this5.loadUsers();
+      _this6.loadUsers();
+
+      _this6.loadDivs();
     }); //setInterval(() => this.loadUsers(), 3000);
   }
 });
@@ -70316,6 +70344,61 @@ var render = function () {
                         "label",
                         {
                           staticClass: "col-sm-2 control-label",
+                          attrs: { for: "inputDivision" },
+                        },
+                        [_vm._v("Division")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-sm-12" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.Division,
+                                expression: "form.Division",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("Division"),
+                            },
+                            attrs: {
+                              type: "",
+                              id: "inputDivision",
+                              placeholder: "Division",
+                            },
+                            domProps: { value: _vm.form.Division },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "Division",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("has-error", {
+                            attrs: { form: _vm.form, field: "Division" },
+                          }),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
                           attrs: { for: "inputMatricule" },
                         },
                         [_vm._v("Matricule")]
@@ -70339,7 +70422,7 @@ var render = function () {
                               "is-invalid": _vm.form.errors.has("Matricule"),
                             },
                             attrs: {
-                              type: "email",
+                              type: "",
                               id: "inputMatricule",
                               placeholder: "Matricule",
                             },
@@ -71410,9 +71493,11 @@ var render = function () {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(user.nom))]),
                       _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(user.Division))]),
+                      _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(user.email))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(_vm._f("upText")(user.type)))]),
+                      _c("td", [_vm._v(_vm._s(user.type))]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(_vm._s(_vm._f("myDate")(user.created_at))),
@@ -71643,6 +71728,51 @@ var render = function () {
                       ],
                       1
                     ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.Division,
+                              expression: "form.Division",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          staticStyle: { width: "470px" },
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "Division",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                          },
+                        },
+                        _vm._l(this.divisions, function (div) {
+                          return _c(
+                            "option",
+                            { key: div.id, domProps: { value: div.id } },
+                            [_vm._v(_vm._s(div.Division))]
+                          )
+                        }),
+                        0
+                      ),
+                    ]),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -72211,6 +72341,8 @@ var staticRenderFns = [
       _c("th", [_vm._v("ID")]),
       _vm._v(" "),
       _c("th", [_vm._v("Nom")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Division")]),
       _vm._v(" "),
       _c("th", [_vm._v("Email")]),
       _vm._v(" "),

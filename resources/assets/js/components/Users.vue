@@ -17,6 +17,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nom</th>
+                        <th>Division</th>
                         <th>Email</th>
                         <th>Type</th>
                         <th>Enregistré à</th>
@@ -28,8 +29,9 @@
 
                     <td>{{user.id}}</td>
                     <td>{{user.nom}}</td>
+                    <td>{{user.Division}}</td>
                     <td>{{user.email}}</td>
-                    <td>{{user.type | upText}}</td>
+                    <td>{{user.type}}</td>
                     <td>{{user.created_at | myDate}}</td>
 
                     <td>
@@ -81,6 +83,11 @@
                         placeholder="CNE"
                         class="form-control" :class="{ 'is-invalid': form.errors.has('CNE') }">
                         <has-error :form="form" field="CNE"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <select class='form-control' style="width: 470px;" v-model="form.Division">
+                            <option v-for="div in this.divisions" :key="div.id" :value="div.id">{{ div.Division }}</option>
+                        </select>
                     </div>
                      <div class="form-group">
                         <input v-model="form.Matricule" name="Matricule" id="Matricule"
@@ -175,13 +182,14 @@ import swal from 'sweetalert2';
             return {
                 editmode: false,
                 users : {},
+                divisions : {},
                 form: new Form({
                     id:'',
                     nom : '',
                     prenom : '',
                     CNE : '',
+                    Division : '',
                     Matricule : '',
-                    division : '',
                     Telephone : '',
                     Sex : '',
                     Date_naissance : '',
@@ -199,7 +207,7 @@ import swal from 'sweetalert2';
         methods: {
             updateUser(){
                 this.$Progress.start();
-                // console.log('Editing data');
+                //console.log('Editing data');
                 this.form.put('api/user/'+this.form.id)
                 .then(() => {
                     // success
@@ -255,7 +263,10 @@ import swal from 'sweetalert2';
                     })
             },
             loadUsers(){
-                axios.get("api/user").then(({ data }) => (this.users = data.data))
+                axios.get("api/user").then(({ data }) => (this.users = data))
+            },
+            loadDivs(){
+                axios.get("api/loadDivs").then(({ data }) => (this.divisions = data.data))
             },
 
             createUser(){
@@ -273,7 +284,7 @@ import swal from 'sweetalert2';
                     toast({
                         type: 'success',
                         title: 'User Created in successfully'
-                        })
+                        })  
                     this.$Progress.finish();
                 })
                 .catch(()=>{
@@ -282,9 +293,11 @@ import swal from 'sweetalert2';
             }
         },
         created() {
-           this.loadUsers();
-           Fire.$on('AfterCreate',() => {
+            this.loadDivs();
+            this.loadUsers();
+            Fire.$on('AfterCreate',() => {
                this.loadUsers();
+               this.loadDivs();
            });
         //setInterval(() => this.loadUsers(), 3000);
         }

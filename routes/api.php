@@ -23,6 +23,7 @@ Route::put('profile', 'API\UserController@updateProfile');
 Route::get('division','API\DivisionController@index');
 Route::post('division','API\DivisionController@store');
 Route::get('UserDivisions','API\DivisionController@UserDivisions');
+Route::get('loadDivs','API\UserController@loadDivs');
 Route::put('division/{id}', 'API\DivisionController@update');
 Route::get('service','API\ServController@index');
 Route::get('getServices/{id}','API\ServController@getServices');

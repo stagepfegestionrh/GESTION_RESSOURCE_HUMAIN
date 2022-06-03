@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nom','prenom','CNE','Matricule','Sex','Date-naissance','Adresse','Telephone','Date_recrutement','Intitule', 'email', 'password', 'bio', 'photo','type'
+        'nom','prenom','CNE','Division','Matricule','Sex','Date-naissance','Adresse','Telephone','Date_recrutement','Intitule', 'email', 'password', 'bio', 'photo','type'
     ];
 
     /**
@@ -34,5 +34,8 @@ class User extends Authenticatable
     }
     public function service() {
         return $this->belongsTo('App\Service');
+    }
+    public function demande_user(){
+        return $this->hasMany('App\Demande_Utilisateur');
     }
 }

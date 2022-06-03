@@ -61,7 +61,7 @@ class DivisionController extends Controller
         $newDivision->save();
 
        // return Division::create([
-           // 'Division' => $request['Division'],
+           // 'Division' => $request['Division'],           
           //  'Chefdivision' => $request['Chefdivision'],
        // ]);
 
@@ -141,7 +141,4 @@ class DivisionController extends Controller
 
         return ['data' => $result]; // or return response()->json(['data' => employees]);
     }
-    
- 
-
 }

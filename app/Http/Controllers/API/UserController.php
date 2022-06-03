@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Division;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,20 @@ class UserController extends Controller
     public function index()
     {
        //$this->authorize('isAdmin');
-        return User::latest()->paginate(20);
+        $users = User::latest()->paginate(20);
+        $results=[];
+        foreach($users as $user){
+            $idDiv=$user -> Division;
+            if($idDiv){
+                $division = Division::findOrFail($idDiv);
+                $user -> Division =$division-> Division;
+            }else{
+                $user -> Division ='-';
+            }
+    
+            $results[]= $user;
+        }
+        return $results;
     }
 
     /**
@@ -42,17 +56,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     { 
-
         $this->validate($request,[
             'nom' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
             'password' => 'required|string|min:6'
         ]);
-
         $newUser = new User();
         $newUser->nom = $request['nom'];
         $newUser->prenom = $request['prenom'];
         $newUser->CNE = $request['CNE'];
+        $newUser->Division = $request['Division'];
         $newUser->Matricule = $request['Matricule'];
         $newUser->Sex = $request['Sex'];
         $newUser->Date_naissance = $request['Date_naissance'];
@@ -65,8 +78,8 @@ class UserController extends Controller
         $newUser->bio = $request['bio'];
         $newUser->photo = $request['photo'];
         $newUser->password = Hash::make($request['password']);
-
         $newUser->save();
+      
         // return User::create([
         //     'nom' => $request['nom'],
         //     'prenom' => $request['prenom'],
@@ -103,6 +116,7 @@ class UserController extends Controller
         $user->nom = $request['nom'];
         $user->prenom = $request['prenom'];
         $user->CNE = $request['CNE'];
+        $user->Division = $request['Division'];
         $user->Matricule = $request['Matricule'];
         $user->Sex = $request['Sex'];
         $user->Date_naissance = $request['Date_naissance'];
@@ -147,8 +161,10 @@ class UserController extends Controller
 
     public function profile()
     {
-        $user = User::findOrFail(Auth::id());
-        return $user;
+        $users = User::findOrFail(Auth::id());
+        $divs = Division::findOrFail($users->Division);
+        $users -> Division = $divs -> Division;
+        return $users;
     }
 
     /**
@@ -159,7 +175,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -174,13 +190,28 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
 
-        $this->validate($request,[
-            'nom' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
-            'password' => 'sometimes|min:6'
-        ]);
+        // $this->validate($request,[
+        //     'nom' => 'required|string|max:191',
+        //     'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
+        //     'password' => 'sometimes|min:6'
+        // ]);
 
-        $user->update($request->all());
+        // $user->update($request->all());
+        $user->nom = $request['nom'];
+        $user->prenom = $request['prenom'];
+        $user->CNE = $request['CNE'];
+        $user->Division = $request['Division'];
+        $user->Matricule = $request['Matricule'];
+        $user->Sex = $request['Sex'];
+        $user->Date_naissance = $request['Date_naissance'];
+        $user->Adresse = $request['Adresse'];
+        $user->Telephone = $request['Telephone'];
+        $user->Date_recrutement = $request['Date_recrutement'];
+        $user->Intitule = $request['Intitule'];
+        $user->email = $request['email'];
+        $user->type = $request['type'];
+        $user->bio = $request['bio'];
+        $user->save();
         return ['message' => 'Updated the user info'];
     }
 
@@ -201,5 +232,14 @@ class UserController extends Controller
         $user->delete();
 
         return ['message' => 'User Deleted'];
+    }
+    public function loadDivs(Request $request){
+        $userdiv = Division::all();
+        $result = [];
+
+        foreach($userdiv as $div){
+            $result[] =  $div;
+        }
+        return ['data' => $result];
     }
 }
