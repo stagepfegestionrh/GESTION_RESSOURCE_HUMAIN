@@ -16,7 +16,7 @@
                         <input type="Date" name="Date_debut" v-model="form.Date_debut" id="Date_debut" class="form-control" :class="{ 'is-invalid': form.errors.has('Date_debut') }" style="width: 200px;">
                         <has-error :form="form" field="Date_debut"></has-error>
                          <strong>Au:</strong>
-                         <input type="Date" name="Date_fin" v-model="form.Date_debut" id="Date_fin" class="form-control" :class="{ 'is-invalid': form.errors.has('Date_fin') }" style="width: 200px;">
+                         <input type="Date" name="Date_fin" v-model="form.Date_fin" id="Date_fin" class="form-control" :class="{ 'is-invalid': form.errors.has('Date_fin') }" style="width: 200px;">
                         <has-error :form="form" field="Date_fin"></has-error>
                     </div>
                     <div>
