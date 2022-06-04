@@ -4,7 +4,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Table des utilisateurs</h3>
+                <h3 class="card-title">Liste des utilisateurs</h3>
 
                 <div class="card-tools">
                     <button class="btn btn-success" @click="newModal">Ajouter <i class="fas fa-user-plus fa-fw"></i></button>
@@ -17,6 +17,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nom</th>
+                        <th>Division</th>
                         <th>Email</th>
                         <th>Type</th>
                         <th>Enregistré à</th>
@@ -27,9 +28,10 @@
                   <tr v-for="user in users" :key="user.id">
 
                     <td>{{user.id}}</td>
-                    <td>{{user.name}}</td>
+                    <td>{{user.nom}}</td>
+                    <td>{{user.Division}}</td>
                     <td>{{user.email}}</td>
-                    <td>{{user.type | upText}}</td>
+                    <td>{{user.type}}</td>
                     <td>{{user.created_at | myDate}}</td>
 
                     <td>
@@ -40,8 +42,8 @@
                         <a href="#" @click="deleteUser(user.id)">
                             <i class="fa fa-trash red"></i>
                         </a>
-
                     </td>
+
                   </tr>
                 </tbody></table>
               </div>
@@ -65,10 +67,57 @@
                 <form @submit.prevent="editmode ? updateUser() : createUser()">
                 <div class="modal-body">
                      <div class="form-group">
-                        <input v-model="form.name" type="text" name="name"
-                            placeholder="Name"
-                            class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
-                        <has-error :form="form" field="name"></has-error>
+                        <input v-model="form.nom" type="text" name="nom"
+                            placeholder="nom"
+                            class="form-control" :class="{ 'is-invalid': form.errors.has('nom') }">
+                        <has-error :form="form" field="nom"></has-error>
+                    </div>
+                     <div class="form-group">
+                        <input v-model="form.prenom" name="prenom" id="prenom"
+                        placeholder="prénom"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('prenom') }">
+                        <has-error :form="form" field="prenom"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <input type="" v-model="form.CNE" name="CNE" id="CNE"
+                        placeholder="CNE"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('CNE') }">
+                        <has-error :form="form" field="CNE"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <select class='form-control' style="width: 470px;" v-model="form.Division">
+                            <option v-for="div in this.divisions" :key="div.id" :value="div.id">{{ div.Division }}</option>
+                        </select>
+                    </div>
+                     <div class="form-group">
+                        <input v-model="form.Matricule" name="Matricule" id="Matricule"
+                        placeholder="Matricule"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('Matricule') }">
+                        <has-error :form="form" field="Matricule"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <input v-model="form.Telephone" name="Telephone" id="Telephone"
+                        placeholder="Telephone"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('Telephone') }">
+                        <has-error :form="form" field="Telephone"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <select  name="Sex" v-model="form.Sex" id="Sex" class="form-control" :class="{ 'is-invalid': form.errors.has('Sex') }">
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                        <has-error :form="form" field="Sex"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <input type="Date" name="Date_naissance" v-model="form.Date_naissance" id="Date_naissance" class="form-control" :class="{ 'is-invalid': form.errors.has('Date_naissance') }">
+                        <has-error :form="form" field="Date_naissance"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <textarea v-model="form.Adresse" name="Adresse" id="Adresse"
+                        placeholder="Adresse"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('Adresse') }"></textarea>
+                        <has-error :form="form" field="Adresse"></has-error>
                     </div>
 
                      <div class="form-group">
@@ -77,8 +126,17 @@
                             class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
                         <has-error :form="form" field="email"></has-error>
                     </div>
-
-                     <div class="form-group">
+                    <div class="form-group">
+                        <input type="Date" placeholder="Date_recrutement" name="Date_recrutement" v-model="form.Date_recrutement" id="Date_recrutement" class="form-control" :class="{ 'is-invalid': form.errors.has('Date_recrutement') }">
+                        <has-error :form="form" field="Date_recrutement"></has-error>
+                    </div>
+                    <div class="form-group">
+                        <input v-model="form.Intitule" name="Intitule" id="Intitule"
+                        placeholder="Intitule"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('Intitule') }">
+                        <has-error :form="form" field="Intitule"></has-error>
+                    </div>
+                    <div class="form-group">
                         <textarea v-model="form.bio" name="bio" id="bio"
                         placeholder="Short bio for user (Optional)"
                         class="form-control" :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
@@ -88,7 +146,7 @@
 
                     <div class="form-group">
                         <select name="type" v-model="form.type" id="type" class="form-control" :class="{ 'is-invalid': form.errors.has('type') }">
-                            <option value="">Select User Role</option>
+                            
                             <option value="admin">Administrateur</option>
                             <option value="user">utilisateur standard</option>
                             <option value="author">Auteur</option>
@@ -113,12 +171,9 @@
 
                 </div>
             </div>
-            </div>
+        </div>      
     </div>
-
-
 </template>
-
 <script>
 import swal from 'sweetalert2';
 
@@ -127,10 +182,21 @@ import swal from 'sweetalert2';
             return {
                 editmode: false,
                 users : {},
+                divisions : {},
                 form: new Form({
                     id:'',
-                    name : '',
+                    nom : '',
+                    prenom : '',
+                    CNE : '',
+                    Division : '',
+                    Matricule : '',
+                    Telephone : '',
+                    Sex : '',
+                    Date_naissance : '',
+                    Adresse : '',
                     email: '',
+                    Date_recrutement: '',
+                    Intitule: '',
                     password: '',
                     type: '',
                     bio: '',
@@ -141,7 +207,7 @@ import swal from 'sweetalert2';
         methods: {
             updateUser(){
                 this.$Progress.start();
-                // console.log('Editing data');
+                //console.log('Editing data');
                 this.form.put('api/user/'+this.form.id)
                 .then(() => {
                     // success
@@ -197,7 +263,10 @@ import swal from 'sweetalert2';
                     })
             },
             loadUsers(){
-                axios.get("api/user").then(({ data }) => (this.users = data.data))
+                axios.get("api/user").then(({ data }) => (this.users = data))
+            },
+            loadDivs(){
+                axios.get("api/loadDivs").then(({ data }) => (this.divisions = data.data))
             },
 
             createUser(){
@@ -215,7 +284,7 @@ import swal from 'sweetalert2';
                     toast({
                         type: 'success',
                         title: 'User Created in successfully'
-                        })
+                        })  
                     this.$Progress.finish();
                 })
                 .catch(()=>{
@@ -224,11 +293,13 @@ import swal from 'sweetalert2';
             }
         },
         created() {
-           this.loadUsers();
-           Fire.$on('AfterCreate',() => {
+            this.loadDivs();
+            this.loadUsers();
+            Fire.$on('AfterCreate',() => {
                this.loadUsers();
+               this.loadDivs();
            });
-        //    setInterval(() => this.loadUsers(), 3000);
+        //setInterval(() => this.loadUsers(), 3000);
         }
 
     }

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'bio', 'photo','type'
+        'nom','prenom','CNE','Division','Matricule','Sex','Date-naissance','Adresse','Telephone','Date_recrutement','Intitule', 'email', 'password', 'bio', 'photo','type'
     ];
 
     /**
@@ -27,4 +27,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    
+    public function division() {
+        return $this->belongsTo('App\Division');
+    }
+    public function service() {
+        return $this->belongsTo('App\Service');
+    }
+    public function demande_user(){
+        return $this->hasMany('App\Demande_Utilisateur');
+    }
 }
