@@ -35,3 +35,7 @@ Route::get('division/{id}','API\DivisionController@show');
 Route::delete('service/{id}','API\ServController@destroy');
 Route::put('service/{id}', 'API\ServController@update');
 Route::get('ServDivision','API\ServController@ServDivision');
+
+// les demandes
+Route::post('demande_conge','API\DemandeCongeController@store');
+

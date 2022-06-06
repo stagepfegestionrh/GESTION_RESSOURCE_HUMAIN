@@ -18,6 +18,7 @@ class ServController extends Controller
      */
     public function index(Request $id)
     {
+        
     }
 
 
@@ -145,11 +146,7 @@ class ServController extends Controller
             
              $result[] =  $user;
         }
-<<<<<<< HEAD
-         return ['data' => $result];
-=======
         return ['data' => $result];
->>>>>>> eaf8a39af2f42e845ae91657243d8656741bbfa0
     }
 
 }
