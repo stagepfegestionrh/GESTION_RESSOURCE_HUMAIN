@@ -80,6 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </p>
             </router-link>
             </li>
+            
             <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
             <i class="nav-icon fa-regular fa-rectangle-list"></i>
@@ -101,6 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          
           @can('isUser')
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -161,7 +163,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <router-link to="/profile" class="nav-link">
                     <i class="nav-icon fas fa-user "></i>
                     <p>
-                        Profile
+                        Profil
                     </p>
                 </router-link>
          </li>
@@ -172,7 +174,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                               document.getElementById('logout-form').submit();">
                     <i class="nav-icon fa fa-power-off "></i>
                     <p>
-                        {{ __('Logout') }}
+                        {{ __('Déconnexion') }}
                     </p>
                  </a>
 

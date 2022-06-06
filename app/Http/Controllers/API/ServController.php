@@ -145,7 +145,11 @@ class ServController extends Controller
             
              $result[] =  $user;
         }
+<<<<<<< HEAD
+         return ['data' => $result];
+=======
         return ['data' => $result];
+>>>>>>> eaf8a39af2f42e845ae91657243d8656741bbfa0
     }
 
 }
