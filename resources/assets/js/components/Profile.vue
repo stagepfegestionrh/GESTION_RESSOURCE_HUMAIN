@@ -100,10 +100,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="inputDivision" class="col-sm-2 control-label">Division</label>
+
+                                    <div class="col-sm-12">
+                                    <input type="" v-model="form.Division" class="form-control" id="inputDivision" placeholder="Division"  :class="{ 'is-invalid': form.errors.has('Division') }">
+                                     <has-error :form="form" field="Division"></has-error>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="inputMatricule" class="col-sm-2 control-label">Matricule</label>
 
                                     <div class="col-sm-12">
-                                    <input type="email" v-model="form.Matricule" class="form-control" id="inputMatricule" placeholder="Matricule"  :class="{ 'is-invalid': form.errors.has('Matricule') }">
+                                    <input type="" v-model="form.Matricule" class="form-control" id="inputMatricule" placeholder="Matricule"  :class="{ 'is-invalid': form.errors.has('Matricule') }">
                                      <has-error :form="form" field="Matricule"></has-error>
                                     </div>
                                 </div>
@@ -223,6 +231,7 @@
                     nom : '',
                     prenom : '',
                     CNE : '',
+                    Division : '',
                     Matricule : '',
                     Telephone : '',
                     Sex : '',

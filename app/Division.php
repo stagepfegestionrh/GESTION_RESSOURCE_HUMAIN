@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Passport\HasApiTokens;
 use App\User;
-
+use App\Service;
 
 class Division extends Model
 {

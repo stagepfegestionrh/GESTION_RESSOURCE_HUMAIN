@@ -77,7 +77,7 @@ let routes = [{
         components: require('./components/Divisions.vue')
     },
     {
-        path: '/Service',
+        path: '/Service/:id?',
         components: require('./components/Service.vue')
     },
     {

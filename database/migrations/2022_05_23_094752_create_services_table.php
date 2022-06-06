@@ -14,6 +14,7 @@ class CreateServicesTable extends Migration
     public function up()
     {
         Schema::create('services', function (Blueprint $table) {
+            $table->increments('id');
             $table->unsignedInteger('division')->nullable();
             $table->foreign('division')->references('id')->on('division');
             $table->string('service');

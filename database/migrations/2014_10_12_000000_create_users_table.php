@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('nom');
             $table->string('prenom')->nullable();
             $table->string('CNE')->inuque()->nullable();
+            $table->unsignedInteger('Division')->nullable();
+            $table->foreign('Division')->references('id')->on('division');
             $table->string('Matricule')->unique()->nullable();
             $table->string('Sex')->nullable();
             $table->date('Date_naissance')->nullable();
