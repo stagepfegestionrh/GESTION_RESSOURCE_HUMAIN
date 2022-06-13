@@ -58,8 +58,8 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Add New</h5>
-                    <h5 class="modal-title" v-show="editmode" id="addNewLabel">Update User's Info</h5>
+                    <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Ajouter Nouveau</h5>
+                    <h5 class="modal-title" v-show="editmode" id="addNewLabel">mettre à jour les infos</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -102,10 +102,9 @@
                         <has-error :form="form" field="Telephone"></has-error>
                     </div>
                     <div class="form-group">
-                        <select  name="Sex" v-model="form.Sex" id="Sex" class="form-control" :class="{ 'is-invalid': form.errors.has('Sex') }">
+                        <select name="Sex" v-model="form.Sex" id="Sex" class="form-control" :class="{ 'is-invalid': form.errors.has('Sex') }">
                             <option value="Homme">Homme</option>
                             <option value="Femme">Femme</option>
-                            <option value="Autre">Autre</option>
                         </select>
                         <has-error :form="form" field="Sex"></has-error>
                     </div>
@@ -138,7 +137,7 @@
                     </div>
                     <div class="form-group">
                         <textarea v-model="form.bio" name="bio" id="bio"
-                        placeholder="Short bio for user (Optional)"
+                        placeholder="bio"
                         class="form-control" :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
                         <has-error :form="form" field="bio"></has-error>
                     </div>
@@ -149,22 +148,22 @@
                             
                             <option value="admin">Administrateur</option>
                             <option value="user">utilisateur standard</option>
-                            <option value="author">Auteur</option>
+                            <option value=" author">Chef de division</option>
                         </select>
                         <has-error :form="form" field="type"></has-error>
                     </div>
 
                     <div class="form-group">
-                        <input v-model="form.password" type="password" name="password" id="password"
+                        <input placeholder="Mot de passe" v-model="form.password" type="password" name="password" id="password"
                         class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
                         <has-error :form="form" field="password"></has-error>
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                    <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                    <button v-show="editmode" type="submit" class="btn btn-success">Mettre à jour</button>
+                    <button v-show="!editmode" type="submit" class="btn btn-primary">Créer</button>
                 </div>
 
                 </form>
@@ -213,9 +212,9 @@ import swal from 'sweetalert2';
                     // success
                     $('#addNew').modal('hide');
                     swal.fire(
-                        'Updated!',
-                        'Information has been updated.',
-                        'success'
+                        'mise à jour!',
+                        'Informations modifier',
+                        'Succès'
                     )
                         this.$Progress.finish();
                         Fire.$emit('AfterCreate');
@@ -238,26 +237,26 @@ import swal from 'sweetalert2';
             },
             deleteUser(id){
                 swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
+                    title: 'Êtes-vous sûr?',
+                    text: "vous ne pourrez pas revenir en arrière !",
+                    type: 'Attention',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Oui, supprimez-le !'
                     }).then((result) => {
 
                         // Send request to the server
                         if (result.value) {
                                 this.form.delete('api/user/'+id).then(()=>{
                                         swal.fire(
-                                            'Deleted!',
+                                            'Supprimé!',
                                             'Your file has been deleted.',
-                                            'success'
+                                            'Succès'
                                         )
                                     Fire.$emit('AfterCreate');
                                 }).catch(()=> {
-                                    swal("Failed!", "There was something wronge.", "warning");
+                                    swal("Manqué!", "Il y avait quelque chose qui n'allait pas.", "warning");
                                 });
                          }
                     })
@@ -275,15 +274,15 @@ import swal from 'sweetalert2';
                 this.form.post('api/user')
                 .then(()=>{
                     swal.fire(
-                        'Success',
-                        'user created',
-                        'success'
+                        'Succès',
+                        'utilisateur créé',
+                        'Succès'
                         )
                     Fire.$emit('AfterCreate');
                     $('#addNew').modal('hide')
                     toast({
                         type: 'success',
-                        title: 'User Created in successfully'
+                        title: 'Utilisateur créé avec succès'
                         })  
                     this.$Progress.finish();
                 })

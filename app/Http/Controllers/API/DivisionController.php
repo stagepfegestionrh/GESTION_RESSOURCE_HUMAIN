@@ -20,6 +20,7 @@ class DivisionController extends Controller
     {
         $divisions =  Division::latest()->paginate(20);
 
+
         foreach($divisions as $div){
             
             $chef_division =  User::findOrFail($div->Chef_division); 

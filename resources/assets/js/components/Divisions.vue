@@ -15,14 +15,12 @@
                         <table class="table table-hover">
                             <tbody>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Division</th>
                                     <th>Chef de division</th>
                                     <th>Enregistré à</th>
                                     <th>Modifier</th>
                                 </tr>
                                 <tr v-for="div in divisions" :key="div.id">
-                                    <td>{{div.id}}</td>
                                     <td>{{div.Division}}</td>
                                     <td>{{div.Chef_division}}</td>
                                     <td>{{div.created_at | myDate}}</td>
@@ -35,10 +33,7 @@
                                             <i class="fa fa-trash red"></i>
                                         </a>
                                         /
-                                         <a href="#" @click="showDivision(div.id)">
-                                            <i class="fas fa-eye green"></i>
-                                        </a>
-                                        /
+                                        
                                         <router-link
                                         :to="getUrl(div.id)"
                                         v-slot="{href, route, navigate}">
@@ -138,13 +133,13 @@ export default {
             },
             deleteDivision(id){
                 swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
+                    title: 'Êtes-vous sûr?',
+                    text: "vous ne pourrez pas revenir en arrière !",
+                    type: 'Attention',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Oui, supprimez-le !'
                     }).then((result) => {
 
 
@@ -152,13 +147,13 @@ export default {
                         if (result.value) {
                                 this.form.delete('api/division/'+id).then(()=>{
                                         swal.fire(
-                                            'Deleted!',
+                                            'Supprimé!',
                                             'Your file has been deleted.',
-                                            'success'
+                                            'Succès'
                                         )
                                     Fire.$emit('AfterCreate');
                                 }).catch(()=> {
-                                    swal("Failed!", "There was something wronge.", "warning");
+                                    swal("Manqué!", "Il y avait quelque chose qui n'allait pas.", "Attention");
                                 });
                          }
                     })
@@ -169,15 +164,15 @@ export default {
                 this.form.post('api/division')
                 .then(()=>{
                     swal.fire(
-                        'Success',
-                        'division created',
-                        'success'
+                        'Succès',
+                        'utilisateur créé',
+                        'Succès'
                         )
                     Fire.$emit('AfterCreate');
                     $('#addNew').modal('hide')
                     toast({
                         type: 'success',
-                        title: 'division Created in successfully'
+                        title: 'Division créé avec succès'
                         })
                 this.$Progress.finish();
                 })
@@ -193,9 +188,9 @@ export default {
               // success
                     $('#addNew').modal('hide');
                     swal.fire(
-                        'Updated!',
-                        'Information has been updated.',
-                        'success'
+                        'mise à jour!',
+                        'Informations modifier',
+                        'Succès'
                     )
                     this.$Progress.finish();
                     Fire.$emit('AfterCreate');

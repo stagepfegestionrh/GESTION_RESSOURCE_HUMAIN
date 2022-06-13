@@ -3,13 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Demande;
 
-class Demande_Conge extends Model
+class Demande_RH extends Model
 {
-    protected $table = 'conges';
+    protected $table = 'demanderh';
 
-    public function conge(){
+    public function rh(){
         return $this->belongsTo("App\Demande");
     }
-    
 }

@@ -25,7 +25,7 @@ class ServController extends Controller
 
     public function getServices($id)
     {
-        $services = Service::latest()->where('division', $id     )->paginate(20);
+        $services = Service::latest()->where('division', $id)->paginate(20);
         foreach($services as $service){
             $Chef_service = User::findOrFail($service->Chef_Service); 
             $service->Chef_Service = $Chef_service ? $Chef_service->nom." ".$Chef_service->prenom : '';

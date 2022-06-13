@@ -18,41 +18,11 @@
                 <div class="card card-widget widget-user">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header text-white" style="background-image:url('./img/user-cover.jpg')">
-                    <h3 class="widget-user-username">Elizabeth Pierce</h3>
-                    <h5 class="widget-user-desc">Web Designer</h5>
                 </div>
                 <div class="widget-user-image">
-                    <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar">
+                    <img class="img-circle" :src="getProfilePhoto()" alt="photo de profile">
                 </div>
-                <div class="card-footer">
-                    <div class="row">
-                    <div class="col-sm-4 border-right">
-                        <div class="description-block">
-                        <h5 class="description-header">3,200</h5>
-                        <span class="description-text">SALES</span>
-                        </div>
-                        <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                        <div class="description-block">
-                        <h5 class="description-header">13,000</h5>
-                        <span class="description-text">FOLLOWERS</span>
-                        </div>
-                        <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-4">
-                        <div class="description-block">
-                        <h5 class="description-header">35</h5>
-                        <span class="description-text">PRODUCTS</span>
-                        </div>
-                        <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
+                
                 </div>
             </div>
 
@@ -62,16 +32,11 @@
                 <div class="card">
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
-                        <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Activité</a></li>
                         <li class="nav-item"><a class="nav-link active show" href="#settings" data-toggle="tab">Parametre</a></li>
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
                         <div class="tab-content">
-                            <!-- Activity Tab -->
-                            <div class="tab-pane" id="activity">
-                                <h3 class="text-center">Display User Activity</h3>
-                            </div>
                             <!-- Setting Tab -->
                             <div class="tab-pane active show" id="settings">
                                 <form class="form-horizontal">

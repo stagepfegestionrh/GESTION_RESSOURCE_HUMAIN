@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>AdminLTE 3 | Starter</title>
+  <title>Gestion RH</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="/css/app.css">
 </head>
@@ -46,8 +46,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="./img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
       <span class="brand-text font-weight-light">Gestion RH</span>
     </a>
 
@@ -71,7 +69,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
             <router-link to="/dashboard" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt "></i>
                 <p>
@@ -79,13 +77,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 </p>
             </router-link>
-            </li>
-            
+            </li> -->
+            @can('isAdmin')
             <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-            <i class="nav-icon fa-regular fa-rectangle-list"></i>
+            <i class="nav-icon fa fa-list" ></i>
               <p>
-                Liste des demandes
+                Demandes
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/Demande_conge_all" class="nav-link">
+                <i class="fa-solid fa-calendar-days fa-fw"></i>
+                  <p>Demande de congé</p>
+                </router-link>
+                <router-link to="/Demande_document_RH_all" class="nav-link">
+                <i class="fa-solid fa-file fa-fw"></i>
+                  <p>Demande de document RH</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+            @endcan
+            @can('isUser')
+            <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-list" ></i>
+              <p>
+                Mes Demandes
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
@@ -102,8 +123,75 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
-          
+          @endcan
+          @can('isAuthor')
+            <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-list" ></i>
+              <p>
+                Mes Demandes
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/Demande_conge" class="nav-link">
+                <i class="fa-solid fa-calendar-days fa-fw"></i>
+                  <p>Demande de congé</p>
+                </router-link>
+                <router-link to="/Demande_document_RH" class="nav-link">
+                <i class="fa-solid fa-file fa-fw"></i>
+                  <p>Demande de document RH</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+          @endcan
           @can('isUser')
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-cog "></i>
+              <p>
+                Depot d'une demande
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/Depot_Demande_conge" class="nav-link">
+                <i class="fa-solid fa-calendar-days fa-fw"></i>
+                  <p>Demande de congé</p>
+                </router-link>
+                <router-link to="/Depot_Demande_document_RH" class="nav-link">
+                <i class="fa-solid fa-file fa-fw"></i>
+                  <p>Demande de document RH</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+          @endcan
+          @can('isAuthor')
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fa-regular fa-rectangle-list"></i>
+              <p>
+                Liste des demandes
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/Demande_conge_chef" class="nav-link">
+                <i class="fa-solid fa-calendar-days fa-fw"></i>
+                  <p>Demande de congé</p>
+                </router-link>
+                <router-link to="/Demande_document_RH_chef" class="nav-link">
+                <i class="fa-solid fa-file fa-fw"></i>
+                  <p>Demande de document RH</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-cog "></i>
@@ -129,7 +217,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @can('isAdmin')
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-cog green"></i>
+              <i class="nav-icon fa fa-cog "></i>
               <p>
                 Management
                 <i class="right fa fa-angle-left"></i>
@@ -150,14 +238,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
           
-          <li class="nav-item">
+          <!-- <li class="nav-item">
                 <router-link to="/developer" class="nav-link">
                     <i class="nav-icon fas fa-cogs"></i>
                     <p>
                         Developpeur
                     </p>
                 </router-link>
-         </li>
+         </li> -->
          @endcan
           <li class="nav-item">
                 <router-link to="/profile" class="nav-link">

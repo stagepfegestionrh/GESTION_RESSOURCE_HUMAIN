@@ -42,7 +42,6 @@ class UserController extends Controller
             }else{
                 $user -> Division ='-';
             }
-    
             $results[]= $user;
         }
         return $results;
@@ -106,7 +105,6 @@ class UserController extends Controller
     {
         
         $user = auth('api')->user();
-
         $this->validate($request,[
             'nom' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
@@ -116,7 +114,7 @@ class UserController extends Controller
         $user->nom = $request['nom'];
         $user->prenom = $request['prenom'];
         $user->CNE = $request['CNE'];
-        $user->Division = $request['Division'];
+        // $user->Division = $request['Division'];
         $user->Matricule = $request['Matricule'];
         $user->Sex = $request['Sex'];
         $user->Date_naissance = $request['Date_naissance'];
@@ -129,31 +127,22 @@ class UserController extends Controller
         $user->bio = $request['bio'];
         $user->photo = $request['photo'];
         $user->password = Hash::make($request['password']);
-
         $user->save();
 
+
         $currentPhoto = $user->photo;
-
-
         if($request->photo != $currentPhoto){
             $nom = time().'.' . explode('/', explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
-
             \Image::make($request->photo)->save(public_path('img/profile/').$nom);
             $request->merge(['photo' => $nom]);
-
             $userPhoto = public_path('img/profile/').$currentPhoto;
             if(file_exists($userPhoto)){
                 @unlink($userPhoto);
             }
-
         }
-
-
         if(!empty($request->password)){
             $request->merge(['password' => Hash::make($request['password'])]);
         }
-
-
        // $user->update($request->all());
         return ['message' => "Success"];
     }
@@ -162,8 +151,8 @@ class UserController extends Controller
     public function profile()
     {
         $users = User::findOrFail(Auth::id());
-        $divs = Division::findOrFail($users->Division);
-        $users -> Division = $divs -> Division;
+        // $divs = Division::findOrFail($users->Division);
+        // $users -> Division = $divs -> Division;
         return $users;
     }
 
@@ -177,7 +166,6 @@ class UserController extends Controller
     {
         
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -187,14 +175,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $user = User::findOrFail($id);
 
-        // $this->validate($request,[
-        //     'nom' => 'required|string|max:191',
-        //     'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
-        //     'password' => 'sometimes|min:6'
-        // ]);
+        $this->validate($request,[
+             'nom' => 'required|string|max:191',
+             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
+             'password' => 'sometimes|min:6'
+        ]);
 
         // $user->update($request->all());
         $user->nom = $request['nom'];

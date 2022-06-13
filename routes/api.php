@@ -38,4 +38,15 @@ Route::get('ServDivision','API\ServController@ServDivision');
 
 // les demandes
 Route::post('demande_conge','API\DemandeCongeController@store');
+Route::get('loadDemandeConge','API\DemandeCongeController@index');
 
+Route::get('loadDemandeCongeChef','API\DemandeCongeControllerChef@index');
+
+Route::get('loadDemandeCongeAll','API\DemandeCongeAllController@index');
+
+Route::get('loadDemandeRhAll','API\DemandeRhAllController@index');
+
+Route::post('demande_rh','API\DemandeRhController@store');
+Route::get('loadDemandeRh','API\DemandeRhController@index');
+
+Route::get('loadDemandeRhChef','API\DemandeRhChefController@index');

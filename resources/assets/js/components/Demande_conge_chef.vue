@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Liste des demandes de document RH</h3>
+                        <h3 class="card-title">Liste des demandes de congé</h3>
                         <div class="card-tools">
                             <button class="btn btn-success"><i class="nav-icon fas fa-file-excel fa-fw"></i> Généré fichier excel </button>
                         </div>
@@ -14,14 +14,18 @@
                         <table class="table table-hover">
                             <tbody>
                                 <tr>
+                                    <th>utilisateur</th>
                                     <th>Type</th>
-                                    <th>Langue</th>
+                                    <th>Date de début</th>
+                                    <th>Date de fin</th>
                                     <th>Commentaire</th>
                                 </tr>
-                                <tr v-for="rh in demanderh" :key="rh.utilisateur">
-                                    <th>{{rh.type}}</th>
-                                    <th>{{rh.langue}}</th>
-                                    <th>{{rh.Commentaire}}</th>
+                                <tr v-for="conge in conges" :key="conge.utilisateur">
+                                    <th>{{conge.utilisateur}}</th>
+                                    <th>{{conge.type}}</th>
+                                    <th>{{conge.date_debut}}</th>
+                                    <th>{{conge.date_fin}}</th>
+                                    <th>{{conge.Commentaire}}</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -34,35 +38,36 @@
 
 <script>
 export default {
-      data(){
-            return{
+        data() {
+            return {
                 editmode: false,
-                demanderh: {},
+                conges : {},
                 form: new Form({
+                    utilisateur :  ''  , 
+                    date_debut:'',
+                    date_fin:'',
                     type:'',
-                    langue:'',
+                    durée: '',
                     Commentaire:''
                 })
             }
-        
-
-      },
-      methods: {
-            loadDemandeRh(){
-                axios.get("api/loadDemandeRh/").then(({ data }) => (this.demanderh=data.data))
+            
+        },
+        methods: {
+            loadDemandeConge(){
+                axios.get("api/loadDemandeCongeChef/").then(({ data }) => (this.conges=data.data))
             },
         },
         created() {
-                this.loadDemandeRh();
+                this.loadDemandeConge();
                 Fire.$on('AfterCreate',() => {
-                this.loadDemandeRh();
+                this.loadDemandeConge();
                 
 
            });
-      }
+        //    setInterval(() => this.loadServices(), 3000);
+            }
 }
 </script>
 
-<style>
 
-</style>

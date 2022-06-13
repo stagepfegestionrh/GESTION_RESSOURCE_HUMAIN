@@ -10,22 +10,23 @@ use App\Demande_Conge;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-
-class DemandeCongeController extends Controller
+class DemandeCongeAllController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
     public function index()
     {
-        return Demande_Conge::latest()->where('utilisateur',Auth::id())->paginate(20);
+        $conges = Demande_Conge::paginate(20);
+        foreach($conges as $conge){
+            $users = User::findOrFail($conge->utilisateur);
+            $conge -> utilisateur = $users ? $users->nom." ".$users->prenom : '';
+        }
+        return $conges;
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,26 +45,8 @@ class DemandeCongeController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request,[
-        //      'type' => 'required|string|max:191',
-        //      'date_debut' => 'required',
-        //      'date_fin' => 'required',
-        //      'durée' => 'required',
-        //      
-        //   ]);
-
-        $demandeCongé = new Demande_Conge();
-        $demandeCongé -> utilisateur = Auth::id();
-        $demandeCongé->type = $request['type'];
-        $demandeCongé->date_debut = $request['date_debut'];
-        $demandeCongé->date_fin = $request['date_fin'];
-        $demandeCongé->durée = $request['durée'];
-        $demandeCongé->certificat = $request['certificat'];
-        $demandeCongé->Commentaire = $request['Commentaire'];
-        $demandeCongé->save();
+        //
     }
-
-    
 
     /**
      * Display the specified resource.

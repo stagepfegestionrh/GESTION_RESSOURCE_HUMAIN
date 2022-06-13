@@ -9,20 +9,20 @@
                         <div class="card-body">
                             <div class="form-group" >
                                  <strong>Du:</strong>
-                            <input type="Date" name="Date_debut" v-model="form.Date_debut" id="Date_debut" class="form-control" :class="{ 'is-invalid': form.errors.has('Date_debut') }" style="width: 200px;">
+                            <input type="Date" name="date_debut" v-model="form.date_debut" id="date_debut" class="form-control" :class="{ 'is-invalid': form.errors.has('date_debut') }" style="width: 200px;">
                             <has-error :form="form" field="Date_debut"></has-error>
                              <strong>Au:</strong>
-                             <input type="Date" name="Date_fin" v-model="form.Date_fin" id="Date_fin" class="form-control" :class="{ 'is-invalid': form.errors.has('Date_fin') }" style="width: 200px;">
-                            <has-error :form="form" field="Date_fin"></has-error>
+                             <input type="Date" name="date_fin" v-model="form.date_fin" id="date_fin" class="form-control" :class="{ 'is-invalid': form.errors.has('date_fin') }" style="width: 200px;">
+                            <has-error :form="form" field="date_fin"></has-error>
                         </div>
                         <div>
                           <div class="form-group">
                                 <label>Type de congé : </label>
                                 <select class='form-control' v-model="form.type" @change="showCerti($event)" >
                                  <!--click to show-->
-                                    <option  value="1">Congé de Maladie</option>
-                                    <option  value="2" >Congé de Maternité</option>
-                                    <option  value="3">Congé Normal</option>
+                                    <option  value="Congé de Maladie">Congé de Maladie</option>
+                                    <option  value="Congé de Maternité" >Congé de Maternité</option>
+                                    <option  value="Congé Normal">Congé Normal</option>
                                 </select>
                             </div>
                             <!--show Upload button-->
@@ -55,13 +55,14 @@ import { exit } from 'process';
         data() {
             return {             
                 active: false,
-
+                users: '',
                 form: new Form({
-                        date_debut:'',
-                        date_fin:'',
-                        type:'',
-                        durée: '',
-                        Commentaire:''
+                    utilisateur : ''  , 
+                    date_debut:'',
+                    date_fin:'',
+                    type:'',
+                    durée: '',
+                    Commentaire:''
                     })
             };
         },
@@ -90,7 +91,7 @@ import { exit } from 'process';
                 });
             },
             showCerti(event) {
-                   if(event.target.value == 1){
+                   if(event.target.value == "Congé de Maladie"){
                    this.active=true;
                    }else{
                    this.active=false; 
@@ -118,14 +119,19 @@ import { exit } from 'process';
                 });
                 
             },
+            postUser(){
+
+            }
+            // getUser(){
+            //     var id = this.$route.params.id;
+                
+            //     this.form.utilisateur = id;
+            //     axios.get('api/utilisateur/'+id).then(({ data }) => (this.users = data))
+            // },
             
         },
-        created() {
-               
-            Fire.$on('AfterCreate',() => {
-
-        });
+        
         //    setInterval(() => this.loadServices(), 3000);
             }
-    }
+    
 </script>

@@ -1,10 +1,10 @@
-$<?php
+<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDemandeDeCongeTable extends Migration
+class CreateDemanderhTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateDemandeDeCongeTable extends Migration
      */
     public function up()
     {
-        Schema::create('conges', function (Blueprint $table) {
+        Schema::create('demanderh', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('utilisateur')->nullable();
             $table->foreign('utilisateur')->references('id')->on('users');
             $table->string("type")->nullable();
-            $table->date("date_debut")->nullable();
-            $table->date("date_fin")->nullable();
-            $table->datetime("durée")->nullable();
-            $table->string("certificat")->nullable();
+            $table->string("langue")->nullable();
             $table->string("Commentaire")->nullable();
-
             $table->timestamps();
         });
     }
@@ -35,6 +31,6 @@ class CreateDemandeDeCongeTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('demanderh');
     }
 }

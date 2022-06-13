@@ -14,14 +14,17 @@
                         <table class="table table-hover">
                             <tbody>
                                 <tr>
+                                    <th>utilisateur</th>
                                     <th>Type</th>
                                     <th>Langue</th>
                                     <th>Commentaire</th>
                                 </tr>
                                 <tr v-for="rh in demanderh" :key="rh.utilisateur">
+                                    <th>{{rh.utilisateur}}</th>
                                     <th>{{rh.type}}</th>
                                     <th>{{rh.langue}}</th>
                                     <th>{{rh.Commentaire}}</th>
+                                    
                                 </tr>
                             </tbody>
                         </table>
@@ -39,6 +42,7 @@ export default {
                 editmode: false,
                 demanderh: {},
                 form: new Form({
+                    utilisateur : '',
                     type:'',
                     langue:'',
                     Commentaire:''
@@ -48,18 +52,19 @@ export default {
 
       },
       methods: {
-            loadDemandeRh(){
-                axios.get("api/loadDemandeRh/").then(({ data }) => (this.demanderh=data.data))
+            loadDemandeRH(){
+                axios.get("api/loadDemandeRhChef/").then(({ data }) => (this.demanderh=data.data))
             },
-        },
-        created() {
-                this.loadDemandeRh();
+      },
+      created() {
+                this.loadDemandeRH();
                 Fire.$on('AfterCreate',() => {
-                this.loadDemandeRh();
+                this.loadDemandeRH();
                 
 
            });
-      }
+        //    setInterval(() => this.loadServices(), 3000);
+            }
 }
 </script>
 

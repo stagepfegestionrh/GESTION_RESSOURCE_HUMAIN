@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Liste des demandes de document RH</h3>
+                        <h3 class="card-title">Liste des demandes de doc RH</h3>
                         <div class="card-tools">
                             <button class="btn btn-success"><i class="nav-icon fas fa-file-excel fa-fw"></i> Généré fichier excel </button>
                         </div>
@@ -14,11 +14,13 @@
                         <table class="table table-hover">
                             <tbody>
                                 <tr>
+                                    <th>utilisateur</th>
                                     <th>Type</th>
-                                    <th>Langue</th>
+                                    <th>langue</th>
                                     <th>Commentaire</th>
                                 </tr>
                                 <tr v-for="rh in demanderh" :key="rh.utilisateur">
+                                    <th>{{rh.utilisateur}}</th>
                                     <th>{{rh.type}}</th>
                                     <th>{{rh.langue}}</th>
                                     <th>{{rh.Commentaire}}</th>
@@ -34,35 +36,34 @@
 
 <script>
 export default {
-      data(){
-            return{
+        data() {
+            return {
                 editmode: false,
-                demanderh: {},
+                demanderh : {},
                 form: new Form({
+                    utilisateur :  ''  ,
                     type:'',
-                    langue:'',
+                    langue: '',
                     Commentaire:''
                 })
             }
-        
-
-      },
-      methods: {
-            loadDemandeRh(){
-                axios.get("api/loadDemandeRh/").then(({ data }) => (this.demanderh=data.data))
+            
+        },
+        methods: {
+            loadDemandeRhAll(){
+                axios.get("api/loadDemandeRhAll/").then(({ data }) => (this.demanderh=data.data))
             },
         },
         created() {
-                this.loadDemandeRh();
+                this.loadDemandeRhAll();
                 Fire.$on('AfterCreate',() => {
-                this.loadDemandeRh();
+                this.loadDemandeRhAll();
                 
 
            });
-      }
+        //    setInterval(() => this.loadServices(), 3000);
+            }
 }
 </script>
 
-<style>
 
-</style>

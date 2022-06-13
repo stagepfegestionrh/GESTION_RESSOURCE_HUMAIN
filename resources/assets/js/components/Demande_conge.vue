@@ -14,13 +14,16 @@
                         <table class="table table-hover">
                             <tbody>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Date</th>
                                     <th>Type</th>
                                     <th>Date de début</th>
                                     <th>Date de fin</th>
-                                    <th>Durée</th>
-                                    <th>Action</th>
+                                    <th>Commentaire</th>
+                                </tr>
+                                <tr v-for="conge in conges" :key="conge.utilisateur">
+                                    <th>{{conge.type}}</th>
+                                    <th>{{conge.date_debut}}</th>
+                                    <th>{{conge.date_fin}}</th>
+                                    <th>{{conge.Commentaire}}</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -33,10 +36,36 @@
 
 <script>
 export default {
+        data() {
+            return {
+                editmode: false,
+                conges : {},
+                form: new Form({
+                    utilisateur :  ''  , 
+                    date_debut:'',
+                    date_fin:'',
+                    type:'',
+                    durée: '',
+                    Commentaire:''
+                })
+            }
+            
+        },
+        methods: {
+            loadDemandeConge(){
+                axios.get("api/loadDemandeConge/").then(({ data }) => (this.conges=data.data))
+            },
+        },
+        created() {
+                this.loadDemandeConge();
+                Fire.$on('AfterCreate',() => {
+                this.loadDemandeConge();
+                
 
+           });
+        //    setInterval(() => this.loadServices(), 3000);
+            }
 }
 </script>
 
-<style>
 
-</style>

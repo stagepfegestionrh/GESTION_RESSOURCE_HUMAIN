@@ -7,11 +7,11 @@ use App\Service;
 use App\User;
 use App\Division;
 use App\Demande_Conge;
+use App\Demande_rh;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-
-class DemandeCongeController extends Controller
+class DemandeRhController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,8 +24,9 @@ class DemandeCongeController extends Controller
     }
     public function index()
     {
-        return Demande_Conge::latest()->where('utilisateur',Auth::id())->paginate(20);
+        return Demande_RH::latest()->where('utilisateur',Auth::id())->paginate(20);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,26 +45,13 @@ class DemandeCongeController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request,[
-        //      'type' => 'required|string|max:191',
-        //      'date_debut' => 'required',
-        //      'date_fin' => 'required',
-        //      'durée' => 'required',
-        //      
-        //   ]);
-
-        $demandeCongé = new Demande_Conge();
-        $demandeCongé -> utilisateur = Auth::id();
-        $demandeCongé->type = $request['type'];
-        $demandeCongé->date_debut = $request['date_debut'];
-        $demandeCongé->date_fin = $request['date_fin'];
-        $demandeCongé->durée = $request['durée'];
-        $demandeCongé->certificat = $request['certificat'];
-        $demandeCongé->Commentaire = $request['Commentaire'];
-        $demandeCongé->save();
+        $demandeRH = new Demande_RH();
+        $demandeRH -> utilisateur = Auth::id();
+        $demandeRH -> type = $request['type'];
+        $demandeRH -> langue = $request['langue'];
+        $demandeRH -> Commentaire = $request['Commentaire'];
+        $demandeRH -> save();
     }
-
-    
 
     /**
      * Display the specified resource.

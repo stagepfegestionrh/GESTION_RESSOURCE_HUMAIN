@@ -56,14 +56,7 @@ Vue.use(VueProgressBar, {
     height: '3px'
 })
 
-let routes = [{
-        path: '/dashboard',
-        components: require('./components/Dashboard.vue')
-    },
-    {
-        path: '/developer',
-        components: require('./components/Developer.vue')
-    },
+let routes = [
     {
         path: '/users',
         components: require('./components/Users.vue')
@@ -95,6 +88,22 @@ let routes = [{
     {
         path: '/Depot_Demande_document_RH',
         components: require('./components/Depot_Demande_doc_RH.vue')
+    },
+    {
+        path: '/Demande_conge_chef',
+        components: require('./components/Demande_conge_chef.vue')
+    },
+    {
+        path: '/Demande_document_RH_chef',
+        components: require('./components/Demande_document_RH_chef.vue')
+    },
+    {
+        path: '/Demande_conge_all',
+        components: require('./components/Demande_conge_all.vue')
+    },
+    {
+        path: '/Demande_document_RH_all',
+        components: require('./components/Demande_document_RH_all.vue')
     },
     {
         path: '*',
